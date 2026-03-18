@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advaith | Data Engineer</title>
+  <title>Advaith | Senior Data Engineer</title>
+  <meta name="description" content="Senior Data Engineer with 5+ years building scalable data platforms on Azure Databricks and Snowflake." />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -24,13 +25,17 @@
 
   <main class="container">
     <!-- Hero -->
-    <section class="hero">
-      <hgroup>
-        <h1>Hi, I'm Advaith</h1>
-        <p>Data Engineer — PySpark · Databricks · Snowflake · Azure</p>
-      </hgroup>
+    <section class="hero fade-up">
+      <!-- Profile photo: drop a photo named profile.jpg into assets/ to use it -->
+      <!-- <img src="assets/profile.jpg" alt="Advaith" class="hero-avatar" /> -->
+      <div class="hero-avatar-placeholder">A</div>
+
+      <h1>Senior Data Engineer</h1>
+      <p class="hero-subtitle">Azure Databricks · Snowflake · PySpark · Delta Lake</p>
       <p class="hero-desc">
-        I build data pipelines, transformation frameworks, and analytical platforms that turn raw data into business value.
+        5+ years building scalable data platforms for Fortune 500 clients across real estate, finance,
+        and healthcare. Specialised in modernising legacy ETL systems and delivering production-grade
+        pipelines under enterprise SLAs.
       </p>
       <div class="hero-actions">
         <a href="projects.html" role="button">View Projects</a>
@@ -38,49 +43,75 @@
       </div>
     </section>
 
+    <!-- Stats -->
+    <div class="stats-row" style="justify-content:center;">
+      <div class="stat">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Industries</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">F500</div>
+        <div class="stat-label">Clients Served</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">∞</div>
+        <div class="stat-label">Records Processed</div>
+      </div>
+    </div>
+
     <!-- Featured Projects -->
-    <section>
+    <section style="margin-top:3rem;">
       <h2>Featured Projects</h2>
       <div class="grid">
-        <article>
+        <article class="fade-up">
           <header>
-            <span class="tag">PySpark · Databricks</span>
+            <span class="tag">PySpark</span><span class="tag">Databricks</span><span class="tag">Azure</span>
             <h3><a href="projects/pyspark-framework.html">Data Engineering Framework</a></h3>
           </header>
           <p>
-            A production-grade PySpark framework covering multi-source ingestion (JDBC, Blob, Snowflake, Salesforce),
-            Informatica-style transformations, regression testing, and Unity Catalog write-back.
+            Production-grade PySpark framework covering multi-source ingestion (JDBC, Blob, Snowflake,
+            Salesforce), Informatica-style transformations, and Delta Lake write-back patterns.
           </p>
           <footer>
             <a href="projects/pyspark-framework.html">Learn more →</a>
+            &nbsp;&nbsp;
+            <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener">GitHub ↗</a>
           </footer>
         </article>
 
-        <article>
+        <article class="fade-up">
           <header>
-            <span class="tag">Snowflake · SQL</span>
+            <span class="tag">Snowflake</span><span class="tag">Cortex AI</span><span class="tag">SQL</span>
             <h3><a href="projects/snowflake-cortex.html">Snowflake Cortex AI</a></h3>
           </header>
           <p>
-            Leveraging Snowflake Cortex ML functions for sentiment analysis, classification, and text summarisation
-            directly in the data warehouse — no model infrastructure needed.
+            In-warehouse ML inference using Snowflake Cortex — sentiment analysis, text classification,
+            and LLM-powered summarisation directly in SQL with no external infrastructure.
           </p>
           <footer>
             <a href="projects/snowflake-cortex.html">Learn more →</a>
+            &nbsp;&nbsp;
+            <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener">GitHub ↗</a>
           </footer>
         </article>
 
-        <article>
+        <article class="fade-up">
           <header>
-            <span class="tag">SQL · Analytics</span>
+            <span class="tag">SQL</span><span class="tag">Analytics</span><span class="tag">Multi-dialect</span>
             <h3><a href="projects/sql-practice.html">SQL Practice Suite</a></h3>
           </header>
           <p>
-            A collection of advanced SQL problems covering window functions, recursive CTEs, query optimisation,
-            and data modelling patterns across multiple dialects.
+            Advanced SQL problems with worked solutions — window functions, recursive CTEs, SCD modelling,
+            and query optimisation across SQL Server, Snowflake, and Spark SQL.
           </p>
           <footer>
             <a href="projects/sql-practice.html">Learn more →</a>
+            &nbsp;&nbsp;
+            <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener">GitHub ↗</a>
           </footer>
         </article>
       </div>
@@ -89,9 +120,9 @@
       </p>
     </section>
 
-    <!-- Quick Skills -->
-    <section>
-      <h2>Core Skills</h2>
+    <!-- Core Skills -->
+    <section style="margin-top:3rem;">
+      <h2>Core Stack</h2>
       <div class="skills-grid">
         <span class="skill-chip">Python</span>
         <span class="skill-chip">PySpark</span>
@@ -101,11 +132,20 @@
         <span class="skill-chip">SQL</span>
         <span class="skill-chip">Delta Lake</span>
         <span class="skill-chip">dbt</span>
+        <span class="skill-chip">Azure Data Factory</span>
+        <span class="skill-chip">Unity Catalog</span>
+        <span class="skill-chip">Spark SQL</span>
         <span class="skill-chip">Git</span>
-        <span class="skill-chip">Jupyter</span>
       </div>
       <p style="margin-top:1rem;"><a href="skills.html">Full skills breakdown →</a></p>
     </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Open to new opportunities</h2>
+      <p>Looking for senior data engineering or platform engineering roles. Let's talk.</p>
+      <a href="contact.html" role="button">Get in Touch</a>
+    </div>
   </main>
 
   <footer class="container">

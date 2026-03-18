@@ -1,124 +1,446 @@
 /* ============================================================
-   Custom styles layered on top of Pico CSS
+   Portfolio — custom styles on top of Pico CSS
    ============================================================ */
 
-/* ---- Layout ---- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+:root {
+  --accent: #6366f1;          /* indigo */
+  --accent-light: #818cf8;
+  --accent-subtle: #eef2ff;
+  --gradient-start: #6366f1;
+  --gradient-end: #06b6d4;    /* cyan */
+  --card-border: #e5e7eb;
+  --tag-bg: #f1f5f9;
+  --tag-color: #475569;
+  --chip-bg: #f0f4ff;
+  --chip-color: #4338ca;
+  --chip-border: #c7d2fe;
+}
+
 body {
-  padding-bottom: 3rem;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 4rem;
+}
+
+code, pre, .language-python, .language-sql {
+  font-family: 'Fira Code', monospace;
+}
+
+/* ---- Navbar ---- */
+header {
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 header nav {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+header nav a {
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+header nav a:hover,
+header nav a[aria-current="page"] {
+  color: var(--accent);
+}
+
+header nav ul:first-child a {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
 }
 
 /* ---- Hero ---- */
 .hero {
-  padding: 4rem 0 3rem;
+  padding: 5rem 0 4rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99,102,241,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px var(--accent), 0 8px 32px rgba(99,102,241,0.25);
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-avatar-placeholder {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 0 0 3px white, 0 0 0 6px var(--accent), 0 8px 32px rgba(99,102,241,0.25);
+  letter-spacing: -1px;
 }
 
 .hero h1 {
   font-size: 3rem;
-  margin-bottom: 0.25rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.4rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: 0.01em;
+  margin-bottom: 1.25rem;
 }
 
 .hero-desc {
-  max-width: 600px;
-  margin: 1rem auto 0;
-  color: var(--pico-muted-color);
-  font-size: 1.05rem;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   justify-content: center;
-  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-actions a[role="button"] {
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.hero-actions a[role="button"]:first-child {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  border: none;
+  color: white;
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+}
+
+.hero-actions a[role="button"]:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(99,102,241,0.45);
+}
+
+.hero-actions a[role="button"].secondary {
+  background: white;
+  border: 1.5px solid var(--card-border);
+  color: #374151;
+}
+
+.hero-actions a[role="button"].secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ---- Section headings ---- */
+h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #111827;
+  margin-bottom: 1.25rem;
 }
 
 /* ---- Tags ---- */
 .tag {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--pico-primary);
-  margin-bottom: 0.5rem;
+  color: var(--accent);
+  background: var(--accent-subtle);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-right: 0.25rem;
+  margin-bottom: 0.4rem;
 }
 
-/* ---- Skills grid ---- */
+/* ---- Project cards ---- */
+article {
+  border: 1.5px solid var(--card-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  background: white;
+}
+
+article:hover {
+  box-shadow: 0 8px 30px rgba(99,102,241,0.12);
+  transform: translateY(-3px);
+  border-color: var(--accent-light);
+}
+
+article header {
+  padding-bottom: 0.5rem;
+}
+
+article h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+article h3 a {
+  color: #111827;
+  text-decoration: none;
+}
+
+article h3 a:hover {
+  color: var(--accent);
+}
+
+article p {
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+article footer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--card-border);
+}
+
+article footer a {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ---- Skills chips ---- */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
 }
 
 .skill-chip {
   display: inline-block;
-  padding: 0.3rem 0.75rem;
+  padding: 0.3rem 0.85rem;
   border-radius: 999px;
-  font-size: 0.85rem;
-  background: var(--pico-secondary-background);
-  color: var(--pico-secondary-inverse);
-  border: 1px solid var(--pico-secondary-border);
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--chip-bg);
+  color: var(--chip-color);
+  border: 1px solid var(--chip-border);
+  transition: background 0.15s, color 0.15s;
+}
+
+.skill-chip:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
 }
 
 /* ---- About page ---- */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
+  align-items: start;
 }
 
-@media (max-width: 768px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero h1 {
-    font-size: 2rem;
-  }
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-  }
+.about-photo {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+}
+
+/* ---- Stats / numbers ---- */
+.stats-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
 }
 
 /* ---- Project detail ---- */
 .project-header {
-  border-bottom: 1px solid var(--pico-table-border-color);
-  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 1.75rem;
   margin-bottom: 2rem;
 }
 
 .project-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.75rem 0;
+  gap: 0.4rem;
+  margin: 0.75rem 0 1rem;
 }
 
 pre {
-  background: var(--pico-code-background-color, #f4f4f4);
-  border-radius: 0.5rem;
-  padding: 1rem 1.25rem;
+  background: #0f172a;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
   overflow-x: auto;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
+  border: 1px solid #1e293b;
+  margin: 1rem 0 1.5rem;
+}
+
+/* override hljs dark background */
+.hljs { background: transparent !important; }
+
+/* ---- Contact form ---- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.contact-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--card-border);
+  border-radius: 0.75rem;
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  transition: border-color 0.15s, color 0.15s, transform 0.15s;
+}
+
+.contact-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  font-size: 1.25rem;
+}
+
+/* ---- CTA section ---- */
+.cta-section {
+  text-align: center;
+  padding: 3.5rem 2rem;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  border-radius: 1.25rem;
+  margin: 3rem 0;
+  color: white;
+}
+
+.cta-section h2 {
+  color: white;
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.cta-section p {
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 1.5rem;
+}
+
+.cta-section a[role="button"] {
+  background: white;
+  color: var(--accent);
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  padding: 0.65rem 1.75rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 /* ---- Footer ---- */
 footer {
   text-align: center;
-  color: var(--pico-muted-color);
+  color: #9ca3af;
+  font-size: 0.875rem;
 }
 
-/* ---- Article cards ---- */
-article header {
-  padding-bottom: 0.25rem;
+footer a {
+  color: #6b7280;
 }
 
-article h3 {
-  margin-bottom: 0.5rem;
+footer a:hover {
+  color: var(--accent);
+}
+
+/* ---- Fade-in animation ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.5s ease both;
+}
+
+.fade-up:nth-child(2) { animation-delay: 0.1s; }
+.fade-up:nth-child(3) { animation-delay: 0.2s; }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.25rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .stats-row { justify-content: center; }
 }

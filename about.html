@@ -27,45 +27,73 @@
 
     <div class="about-grid">
       <div>
-        <p>
-          I'm a Data Engineer with hands-on experience building end-to-end data pipelines across cloud and
-          on-premises environments. My work spans ingestion from JDBC databases, REST APIs, and flat files
-          through to transformation, testing, and delivery into analytical targets like Snowflake, Databricks
-          Unity Catalog, and Azure Blob Storage.
-        </p>
-        <p>
-          I enjoy making complex data systems reliable and maintainable — whether that means building a
-          reusable PySpark transformation library, designing Delta Lake merge strategies, or writing
-          regression tests that catch data drift before it reaches production.
-        </p>
-        <p>
-          Outside of work I'm learning more about data architecture patterns, Snowflake Cortex ML, and
-          modern data stack tooling like dbt.
-        </p>
+        <!-- Profile photo placeholder — replace with <img src="assets/profile.jpg" ...> when ready -->
+        <div style="
+          width:100%;max-width:280px;aspect-ratio:1;border-radius:1rem;
+          background:linear-gradient(135deg,#6366f1,#06b6d4);
+          display:flex;align-items:center;justify-content:center;
+          font-size:5rem;font-weight:800;color:white;
+          box-shadow:0 8px 32px rgba(99,102,241,0.25);
+          margin-bottom:1.5rem;
+        ">A</div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Years</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Industries</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">F500</div>
+            <div class="stat-label">Clients</div>
+          </div>
+        </div>
       </div>
+
       <div>
-        <h3>Background</h3>
-        <ul>
-          <li>Data Engineering — pipelines, ETL/ELT, batch &amp; incremental loads</li>
-          <li>Cloud: Azure (Databricks, Blob Storage, Azure SQL) &amp; Snowflake</li>
-          <li>Languages: Python (PySpark, pandas), SQL</li>
-          <li>Frameworks: Databricks, Delta Lake, dbt</li>
-          <li>Tooling: Git, Jupyter, VS Code</li>
+        <p style="font-size:1.05rem;line-height:1.8;color:#374151;">
+          Senior Data Engineer with 5+ years of experience building and operating scalable data platforms
+          on Azure Databricks and Snowflake. Specialised in modernising legacy ETL systems, designing
+          high-throughput ingestion pipelines, and delivering secure, production-grade data solutions
+          under enterprise SLAs.
+        </p>
+        <p style="color:#4b5563;line-height:1.8;">
+          Proven track record of reducing platform costs, improving data quality, and enabling analytics
+          at scale — with real delivery experience across real estate, finance, and healthcare for
+          Fortune 500 clients.
+        </p>
+
+        <h3 style="margin-top:1.75rem;">What I Work With</h3>
+        <ul style="color:#4b5563;line-height:2;">
+          <li><strong>Platforms:</strong> Azure Databricks, Snowflake, Azure Data Factory, Delta Lake</li>
+          <li><strong>Languages:</strong> Python (PySpark, pandas), SQL (T-SQL, Snowflake, Spark SQL)</li>
+          <li><strong>Patterns:</strong> Medallion architecture, SCD, incremental loads, Delta merge/upsert</li>
+          <li><strong>Tooling:</strong> Git, dbt, Unity Catalog, Jupyter, VS Code, Docker</li>
         </ul>
 
-        <h3>Currently Exploring</h3>
-        <ul>
-          <li>Snowflake Cortex AI / ML functions</li>
-          <li>dbt Core + dbt Cloud</li>
-          <li>Data quality frameworks (Great Expectations)</li>
-        </ul>
+        <h3 style="margin-top:1.5rem;">Industries</h3>
+        <div class="skills-grid">
+          <span class="skill-chip">Real Estate</span>
+          <span class="skill-chip">Finance</span>
+          <span class="skill-chip">Healthcare</span>
+        </div>
+
+        <h3 style="margin-top:1.5rem;">Currently Exploring</h3>
+        <div class="skills-grid">
+          <span class="skill-chip">Snowflake Cortex AI</span>
+          <span class="skill-chip">dbt Core</span>
+          <span class="skill-chip">Great Expectations</span>
+          <span class="skill-chip">Data Mesh patterns</span>
+        </div>
+
+        <div style="margin-top:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="projects.html" role="button">See my projects</a>
+          <a href="contact.html" role="button" class="secondary">Get in touch</a>
+        </div>
       </div>
-    </div>
-
-    <div style="margin-top:2rem;">
-      <a href="projects.html" role="button">See my projects</a>
-      &nbsp;
-      <a href="contact.html" role="button" class="secondary">Get in touch</a>
     </div>
   </main>
 
