@@ -35,8 +35,8 @@
         <p>A natural language analytics layer over a real estate portfolio data model — plain English questions resolved to auditable, SQL-backed answers without writing a single query.</p>
       </div>
 
-      <h2>The Problem</h2>
-      <p>Business stakeholders typically wait days for ad-hoc data questions to be answered. The bottleneck isn't the data — it's the translation layer between a business question and a SQL query. Cortex Analyst removes that bottleneck: users ask in plain English, Cortex generates and runs the SQL, and returns both the result and the query it used so technical stakeholders can verify it.</p>
+      <h2>Overview</h2>
+      <p>Business stakeholders typically wait days for ad-hoc data questions to be answered. The bottleneck isn't the data — it's the translation layer between a business question and a SQL query. This POC removes that bottleneck: a real estate star schema with a Semantic View on top, so Cortex Analyst can answer questions about agent rankings, market trends, and budget variances with no SQL knowledge from the user. Every answer includes the SQL that generated it, so technical stakeholders can verify it.</p>
 
       <div class="feature-grid">
         <div class="feature-card">
@@ -61,11 +61,7 @@
         </div>
       </div>
 
-      <h2>What I Built</h2>
-      <p>A real estate portfolio analytics POC for a fictional brokerage operating across five US markets. The star schema covers property transactions, agent performance, client activity, and operating expenses. Sample data was generated using Snowflake's <code>GENERATOR</code> and <code>UNIFORM</code> functions, producing ~180 transactions and ~120 expense records across a full year.</p>
-      <p>On top of the data model, a Semantic View maps business-friendly names and pre-defined metrics onto the underlying tables — <em>total commission revenue</em>, <em>average days on market</em>, <em>price-to-list ratio</em> — so Cortex Analyst can answer questions about agent rankings, market trends, and budget variances without any SQL knowledge from the user.</p>
-
-      <h2>Questions It Can Answer</h2>
+      <h2>Sample Questions</h2>
       <div class="qex">
         <div class="qex-item">
           <span class="qq">"Which agents generated the most commission this year?"</span>
