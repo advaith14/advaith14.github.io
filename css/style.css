@@ -46,14 +46,13 @@ header nav {
   justify-content: space-between;
 }
 .nav-brand {
-  font-size: 1rem;
-  font-weight: 800;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  background: linear-gradient(135deg, var(--ga), var(--gb));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--ac);
+  transition: color .18s;
 }
+.nav-brand:hover { color: var(--acl); }
 .nav-links {
   display: flex;
   gap: 1.75rem;
