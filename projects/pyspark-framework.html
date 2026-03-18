@@ -106,15 +106,6 @@
       <li><code>check_for_special_characters</code> — flags columns containing unexpected or breaking characters</li>
     </ul>
 
-    <h3>A taste of the API</h3>
-    <pre><code class="language-python"># SCD-style IUD flag generation
-df_joined = infa_joiner(df_stage, df_target, "left", ["customer_id"])
-df_flagged = generate_insert_update_delete_flags(df_joined, {
-    "insert_flag": "customer_id_right IS NULL",
-    "update_flag": "md5_stage != md5_target",
-})
-</code></pre>
-
     <!-- Roadmap -->
     <h2>Roadmap</h2>
     <div class="roadmap">
@@ -122,42 +113,21 @@ df_flagged = generate_insert_update_delete_flags(df_joined, {
         <span class="roadmap-status">✓ Done</span>
         <div>
           <strong>Local testing notebook</strong>
-          <p>Full Jupyter notebook to run and validate all utility functions locally with PySpark — no cloud credentials needed.</p>
+          <p>Full Jupyter notebook validating all utility functions locally with PySpark — no cloud credentials required.</p>
         </div>
       </div>
       <div class="roadmap-item roadmap-item--progress">
         <span class="roadmap-status">In Progress</span>
         <div>
-          <strong>Databricks Community Edition tests</strong>
-          <p>End-to-end notebook tests running on Databricks CE — validating Delta Lake patterns, Unity Catalog writes, and secret scope integration.</p>
+          <strong>Databricks Community Edition end-to-end tests</strong>
+          <p>Notebook tests on Databricks CE covering Delta Lake merge patterns, Unity Catalog writes, and secret scope integration.</p>
         </div>
       </div>
       <div class="roadmap-item roadmap-item--planned">
         <span class="roadmap-status">Planned</span>
         <div>
-          <strong>Snowflake integration tests</strong>
-          <p>Live Snowflake read/write/upsert tests using the free trial environment with RSA key auth.</p>
-        </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>dbt layer</strong>
-          <p>Add a dbt project on top of the ingested Delta tables — transformations, tests, and documentation as code.</p>
-        </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>Data quality with Great Expectations</strong>
-          <p>Integrate GE expectations into the regression testing layer for schema validation and statistical profiling.</p>
-        </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>CI/CD pipeline</strong>
-          <p>GitHub Actions workflow to run unit tests on every push — linting, PySpark tests, and notebook validation.</p>
+          <strong>Snowflake + dbt integration</strong>
+          <p>Live Snowflake read/write tests followed by a dbt project modelling the ingested data through a bronze → silver → gold medallion layer.</p>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Snowflake Cortex AI | Advaith</title>
+  <title>Snowflake Cortex Analyst | Advaith</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
   <link rel="stylesheet" href="../css/style.css" />
@@ -26,88 +26,140 @@
   <main class="container">
     <div class="project-header">
       <a href="../projects.html" class="back-link">← All Projects</a>
-      <h1 style="margin-top:0.75rem;">Snowflake Cortex AI</h1>
+      <h1 style="margin-top:0.75rem;">Snowflake Cortex Analyst</h1>
       <div class="project-meta">
         <span class="tag">Snowflake</span>
+        <span class="tag">Cortex Analyst</span>
+        <span class="tag">Semantic Views</span>
         <span class="tag">SQL</span>
-        <span class="tag">ML / NLP</span>
-        <span class="tag">Cortex</span>
+        <span class="tag">NLP</span>
       </div>
       <p>
-        In-warehouse ML inference using Snowflake Cortex — sentiment analysis, text classification,
-        and LLM-powered summarisation written entirely in SQL, with no external infrastructure.
+        Building a natural language analytics layer using Snowflake Cortex Analyst — letting non-technical
+        stakeholders ask plain English questions and get correct, auditable SQL-backed answers directly
+        from the data warehouse.
       </p>
     </div>
 
-    <h2>Overview</h2>
+    <h2>The Problem</h2>
     <p>
-      Most ML on data warehouse content follows the same awkward pattern: export data, call an external
-      API or inference endpoint, wrangle the results back in. Snowflake Cortex short-circuits that entirely.
-      The functions run inside your Snowflake account — no data leaves, no separate infrastructure to
-      maintain, no API keys to rotate per user.
-    </p>
-    <p>
-      This project explores where that approach works well (fast iteration on structured text, in-flight
-      classification at load time) and where it has limits (large-volume batch inference, highly
-      customised models).
+      Business stakeholders at property and asset management firms typically wait 2–3 days for ad-hoc
+      data questions to be answered. The bottleneck isn't always the data — it's the translation layer
+      between a business question and a SQL query. Cortex Analyst removes that bottleneck entirely:
+      users ask questions in plain English, Cortex generates and executes the SQL, and shows both the
+      answer and the query it ran (so technical stakeholders can audit it).
     </p>
 
     <div class="feature-grid">
       <div class="feature-card">
         <div class="feature-icon">💬</div>
-        <h4>Sentiment Analysis</h4>
-        <p>Score text columns from -1 to +1 using <code>CORTEX.SENTIMENT</code> — customer reviews, support tickets, survey responses.</p>
+        <h4>Natural Language → SQL</h4>
+        <p>Non-technical users ask questions in plain English. Cortex Analyst generates correct SQL against your actual schema — no prompt engineering needed.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🏷️</div>
-        <h4>Zero-Shot Classification</h4>
-        <p>Assign rows to custom categories without training data using <code>CORTEX.CLASSIFY_TEXT</code>.</p>
+        <div class="feature-icon">🧠</div>
+        <h4>Semantic Views</h4>
+        <p>A SQL-native semantic layer that describes your data model — tables, relationships, dimensions, and metrics — so Cortex understands your business context.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <h4>LLM Prompting in SQL</h4>
-        <p>Summarise, extract, or transform text using <code>CORTEX.COMPLETE</code> with any of Snowflake's hosted models.</p>
+        <div class="feature-icon">🔍</div>
+        <h4>Auditable by Design</h4>
+        <p>Every answer comes with the SQL that generated it. Skeptical stakeholders can inspect, validate, and trust the output rather than treating it as a black box.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h4>Zero Data Egress</h4>
-        <p>All inference runs inside your Snowflake account. Data never touches an external API or third-party endpoint.</p>
+        <div class="feature-icon">🏗️</div>
+        <h4>Zero Extra Infrastructure</h4>
+        <p>Runs entirely inside Snowflake. No external model endpoints, no data movement, no API keys per user — governed by your existing Snowflake roles.</p>
       </div>
     </div>
 
-    <h2>Functions Explored</h2>
+    <h2>What I Built</h2>
+    <p>
+      A real estate portfolio analytics POC for a fictional brokerage — <strong>Apex Property Group</strong> —
+      operating across five US markets (Austin, Dallas, Houston, Phoenix, Atlanta). The data model covers
+      property transactions, agent performance, client activity, and operating expenses.
+    </p>
 
-    <h3>Sentiment scoring on review data</h3>
-    <pre><code class="language-sql">SELECT review_id,
-       SNOWFLAKE.CORTEX.SENTIMENT(review_text) AS sentiment_score
-FROM   customer_reviews;
-</code></pre>
-
-    <h3>Zero-shot classification</h3>
-    <pre><code class="language-sql">SELECT ticket_id,
-       SNOWFLAKE.CORTEX.CLASSIFY_TEXT(
-           description,
-           ['billing', 'technical', 'account', 'general']
-       )['label']::STRING AS category
-FROM   support_tickets;
-</code></pre>
-
-    <h3>In-line LLM summarisation</h3>
-    <pre><code class="language-sql">SELECT contract_id,
-       SNOWFLAKE.CORTEX.COMPLETE(
-           'mistral-large',
-           'Summarise in one sentence: ' || clause_text
-       ) AS summary
-FROM   contract_clauses;
-</code></pre>
-
-    <h2>Key Findings</h2>
+    <h3>Data Model</h3>
+    <p>Star schema across two subject areas:</p>
     <ul>
-      <li>Cortex runs as pure SQL — zero Python environment, zero dependencies, zero network egress</li>
-      <li>Latency is higher than dedicated batch inference for very large tables; best under ~100k rows or async</li>
-      <li><code>COMPLETE</code> with structured output instructions is reliable for extraction tasks with a bit of prompt tuning</li>
-      <li>Per-token cost billed as Snowflake credits — cheaper at scale than most external LLM APIs</li>
+      <li><strong>Transaction analytics</strong> — <code>FACT_TRANSACTIONS</code> linked to property, agent, client, and date dimensions. Metrics: commission revenue, closed deals, days on market, price-to-list ratio.</li>
+      <li><strong>Expense analytics</strong> — <code>FACT_OPERATING_EXPENSES</code> with budget vs actual by category and market.</li>
     </ul>
+
+    <h3>Data generation — realistic sample data in Snowflake</h3>
+    <p>Dimension tables loaded with explicit VALUES; fact tables generated using Snowflake's <code>GENERATOR</code> and <code>UNIFORM</code> functions to produce realistic distributions:</p>
+    <pre><code class="language-sql">-- Generate ~180 realistic transactions
+INSERT INTO FACT_TRANSACTIONS
+WITH base AS (
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY SEQ4())              AS transaction_id,
+        (ABS(MOD(RANDOM(), 20)) + 1)::NUMBER             AS property_id,
+        CASE WHEN MOD(ABS(RANDOM()), 5) = 0
+             THEN 'Lease' ELSE 'Sale' END                AS transaction_type,
+        UNIFORM(180000, 14500000, RANDOM())::NUMBER(12,2) AS list_price_raw,
+        UNIFORM(1, 120, RANDOM())::NUMBER                AS days_on_market
+    FROM TABLE(GENERATOR(ROWCOUNT => 180))
+), with_price AS (
+    SELECT *,
+        ROUND(list_price_raw * UNIFORM(0.92, 1.08, RANDOM()), -3) AS sale_price
+    FROM base
+)
+SELECT transaction_id, property_id, transaction_type,
+       list_price_raw, sale_price, days_on_market,
+       ROUND(sale_price * 0.025, 2) AS commission_amount
+FROM with_price;</code></pre>
+
+    <h3>Semantic View — teaching Cortex your data model</h3>
+    <p>
+      The semantic view is the key piece. It maps business-friendly names and metrics onto the underlying
+      tables so Cortex Analyst knows what "agent performance" or "price-to-list ratio" means in your schema:
+    </p>
+    <pre><code class="language-sql">CREATE OR REPLACE SEMANTIC VIEW ANALYTICS.REAL_ESTATE_SEMANTIC
+  TABLES (
+    DIM_PROPERTY       AS property      PRIMARY KEY (property_id),
+    DIM_AGENT          AS agent         PRIMARY KEY (agent_id),
+    FACT_TRANSACTIONS  AS transaction   PRIMARY KEY (transaction_id)
+  )
+  RELATIONSHIPS (
+    MANY transaction(property_id) TO ONE property(property_id),
+    MANY transaction(agent_id)    TO ONE agent(agent_id)
+  )
+  DIMENSIONS (
+    property.market        AS property_market  COMMENT 'Metro market area',
+    property.property_type AS property_type,
+    agent.full_name        AS agent_name       COMMENT 'Agent full name',
+    agent.market           AS agent_market
+  )
+  METRICS (
+    SUM(transaction.commission_amount)  AS total_commission_revenue
+      COMMENT 'Total commission earned on closed transactions',
+    AVG(transaction.days_on_market)     AS avg_days_on_market
+      COMMENT 'Average days from listing to close',
+    AVG(transaction.sale_price / NULLIF(transaction.list_price, 0) * 100)
+                                        AS avg_price_to_list_ratio
+      COMMENT 'Sale price as % of asking — above 100 means over asking'
+  );</code></pre>
+
+    <h3>Questions it can answer</h3>
+    <div class="query-examples">
+      <div class="query-example">
+        <span class="query-q">"Which agents generated the most commission this year?"</span>
+        <span class="query-note">→ Groups by agent_name, sums total_commission_revenue, ranks</span>
+      </div>
+      <div class="query-example">
+        <span class="query-q">"What is the average days on market by property type?"</span>
+        <span class="query-note">→ Groups by property_type, returns avg_days_on_market per group</span>
+      </div>
+      <div class="query-example">
+        <span class="query-q">"Which markets have the highest price-to-list ratio?"</span>
+        <span class="query-note">→ Joins property market, aggregates avg_price_to_list_ratio</span>
+      </div>
+      <div class="query-example">
+        <span class="query-q">"What expense categories are over budget?"</span>
+        <span class="query-note">→ Filters on negative budget_variance in operating expenses fact</span>
+      </div>
+    </div>
 
     <!-- Roadmap -->
     <h2>Roadmap</h2>
@@ -115,36 +167,29 @@ FROM   contract_clauses;
       <div class="roadmap-item roadmap-item--done">
         <span class="roadmap-status">✓ Done</span>
         <div>
-          <strong>Core Cortex functions</strong>
-          <p>SENTIMENT, CLASSIFY_TEXT, and COMPLETE explored and documented with real query patterns.</p>
+          <strong>Real estate POC — data model, semantic view, Cortex Analyst</strong>
+          <p>Full star schema, GENERATOR-based sample data, semantic view, and Cortex Analyst configured and tested with 7 business questions.</p>
         </div>
       </div>
       <div class="roadmap-item roadmap-item--progress">
         <span class="roadmap-status">In Progress</span>
         <div>
-          <strong>Structured JSON extraction with COMPLETE</strong>
-          <p>Using Cortex Complete with JSON-mode prompts to extract structured fields from unstructured text at scale.</p>
+          <strong>Snowflake Intelligence chat interface</strong>
+          <p>Wrapping the Cortex Analyst in Snowflake Intelligence for a conversational UI — showing what a self-service analytics experience looks like for non-technical stakeholders.</p>
         </div>
       </div>
       <div class="roadmap-item roadmap-item--planned">
         <span class="roadmap-status">Planned</span>
         <div>
-          <strong>Cortex Search integration</strong>
-          <p>Combining Cortex Search with semantic retrieval to build a RAG pattern entirely inside Snowflake.</p>
-        </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>Fine-tuned model comparison</strong>
-          <p>Benchmarking Cortex-hosted models against fine-tuned custom models for domain-specific classification tasks.</p>
+          <strong>Cortex Search + RAG pattern</strong>
+          <p>Combining Cortex Search (vector search on unstructured documents) with Cortex Analyst (structured data queries) in a single Snowflake Intelligence agent.</p>
         </div>
       </div>
       <div class="roadmap-item roadmap-item--planned">
         <span class="roadmap-status">Planned</span>
         <div>
           <strong>Streamlit in Snowflake dashboard</strong>
-          <p>A live Streamlit app (hosted inside Snowflake) for exploring Cortex sentiment outputs interactively.</p>
+          <p>A live Streamlit app hosted inside Snowflake — interactive charts built on top of the same semantic view, no external BI tool needed.</p>
         </div>
       </div>
     </div>

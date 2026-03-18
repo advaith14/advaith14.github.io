@@ -265,17 +265,22 @@ article footer a { font-weight: 600; color: var(--accent); text-decoration: none
 .about-list li:last-child { border-bottom: none; }
 
 /* ---- Highlight pills (about page) ---- */
-.highlight-pills { display: flex; flex-direction: column; gap: 0.5rem; }
+.highlight-pills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
 
 .highlight-pill {
   display: inline-block;
-  padding: 0.4rem 0.9rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
   color: white;
-  width: fit-content;
+  white-space: nowrap;
 }
 
 /* ---- CTA section ---- */
@@ -492,6 +497,32 @@ pre {
 
 .roadmap-item div strong { font-size: 0.95rem; color: var(--text-heading); display: block; margin-bottom: 0.2rem; }
 .roadmap-item div p { font-size: 0.85rem; color: #4b5563; margin: 0; line-height: 1.6; }
+
+/* ---- Query examples (Cortex project page) ---- */
+.query-examples { display: flex; flex-direction: column; gap: 0.6rem; margin: 1rem 0 2rem; }
+
+.query-example {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid var(--card-border);
+  border-radius: 0.75rem;
+  background: white;
+}
+
+.query-q {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-heading);
+  font-style: italic;
+}
+
+.query-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: 'Fira Code', monospace;
+}
 
 /* ---- Footer ---- */
 footer { text-align: center; color: var(--text-muted); font-size: 0.875rem; }
