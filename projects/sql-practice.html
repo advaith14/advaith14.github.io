@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header class="container">
+  <header>
     <nav>
-      <ul><li><strong><a href="../index.html">Advaith</a></strong></li></ul>
-      <ul>
+      <a class="nav-brand" href="../index.html">Advaith</a>
+      <ul class="nav-links">
         <li><a href="../about.html">About</a></li>
         <li><a href="../projects.html">Projects</a></li>
         <li><a href="../skills.html">Skills</a></li>
@@ -20,100 +20,102 @@
     </nav>
   </header>
 
-  <main class="container">
-    <div class="project-header">
-      <a href="../projects.html" class="back-link">← All Projects</a>
-      <h1 style="margin-top:0.65rem;">SQL Practice Suite</h1>
-      <div class="project-meta">
-        <span class="tag">SQL</span>
-        <span class="tag">SQL Server</span>
-        <span class="tag">Snowflake</span>
-        <span class="tag">Spark SQL</span>
-        <span class="tag">Analytics</span>
+  <main>
+    <div class="wrap" style="padding-top:2rem;padding-bottom:3rem;">
+      <div class="proj-header">
+        <a href="../projects.html" class="back-link">← All Projects</a>
+        <h1 style="margin-top:0.65rem;font-size:1.6rem;font-weight:800;color:var(--th);">SQL Practice Suite</h1>
+        <div class="proj-tags">
+          <span class="ptag">SQL</span>
+          <span class="ptag">SQL Server</span>
+          <span class="ptag">Snowflake</span>
+          <span class="ptag">Spark SQL</span>
+          <span class="ptag">Analytics</span>
+        </div>
+        <p>Advanced SQL problems with worked solutions — going well beyond GROUP BY into the patterns that actually come up in production data engineering and analytics work.</p>
       </div>
-      <p>Advanced SQL problems with worked solutions — going well beyond GROUP BY into the patterns that actually come up in production data engineering and analytics work.</p>
-    </div>
 
-    <h2>Overview</h2>
-    <p>A lot of SQL practice resources stop at aggregations. This suite covers the harder patterns — handling hierarchies, building slowly changing dimensions, writing queries that are both readable and performant at scale. Every problem includes a worked solution and commentary on trade-offs between approaches.</p>
+      <h2>Overview</h2>
+      <p>A lot of SQL practice resources stop at aggregations. This suite covers the harder patterns — handling hierarchies, building slowly changing dimensions, writing queries that are both readable and performant at scale. Every problem includes a worked solution and commentary on trade-offs between approaches.</p>
 
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🪟</div>
-        <h4>Window Functions</h4>
-        <p>RANK, DENSE_RANK, ROW_NUMBER, LAG/LEAD, running totals, NTILE — applied to real analytical problems.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌳</div>
-        <h4>Recursive CTEs</h4>
-        <p>Org chart traversal, bill of materials, category trees — problems that require iterative or hierarchical logic.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h4>SCD Patterns</h4>
-        <p>Type 1, 2, and 3 slowly changing dimensions with merge logic, effective date ranges, and history tracking.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h4>Query Optimisation</h4>
-        <p>Execution plan analysis, index strategy, and partition pruning — writing queries that hold up at enterprise scale.</p>
-      </div>
-    </div>
-
-    <h2>Dialects Covered</h2>
-    <div class="skills-grid" style="margin-bottom:1.75rem;">
-      <span class="skill-chip">ANSI SQL</span>
-      <span class="skill-chip">SQL Server (T-SQL)</span>
-      <span class="skill-chip">Snowflake SQL</span>
-      <span class="skill-chip">Spark SQL</span>
-    </div>
-
-    <h2>Roadmap</h2>
-    <div class="roadmap">
-      <div class="roadmap-item roadmap-item--done">
-        <span class="roadmap-status">✓ Done</span>
-        <div>
-          <strong>Window functions &amp; CTEs</strong>
-          <p>Core problem set with worked solutions and commentary on performance trade-offs.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fi">🪟</div>
+          <h4>Window Functions</h4>
+          <p>RANK, DENSE_RANK, ROW_NUMBER, LAG/LEAD, running totals, NTILE — applied to real analytical problems.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🌳</div>
+          <h4>Recursive CTEs</h4>
+          <p>Org chart traversal, bill of materials, category trees — problems that require iterative or hierarchical logic.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🔄</div>
+          <h4>SCD Patterns</h4>
+          <p>Type 1, 2, and 3 slowly changing dimensions with merge logic, effective date ranges, and history tracking.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">⚡</div>
+          <h4>Query Optimisation</h4>
+          <p>Execution plan analysis, index strategy, and partition pruning — writing queries that hold up at enterprise scale.</p>
         </div>
       </div>
-      <div class="roadmap-item roadmap-item--done">
-        <span class="roadmap-status">✓ Done</span>
-        <div>
-          <strong>SCD Type 1, 2, 3 patterns</strong>
-          <p>Merge-based SCD implementations in T-SQL and Snowflake SQL with full worked examples.</p>
-        </div>
+
+      <h2>Dialects Covered</h2>
+      <div class="skills-grid" style="margin-bottom:1.75rem;">
+        <span class="skill-chip">ANSI SQL</span>
+        <span class="skill-chip">SQL Server (T-SQL)</span>
+        <span class="skill-chip">Snowflake SQL</span>
+        <span class="skill-chip">Spark SQL</span>
       </div>
-      <div class="roadmap-item roadmap-item--progress">
-        <span class="roadmap-status">In Progress</span>
-        <div>
-          <strong>Query optimisation section</strong>
-          <p>Execution plan analysis and partition pruning problems with before/after performance comparisons.</p>
+
+      <h2>Roadmap</h2>
+      <div class="roadmap">
+        <div class="rm-item rm-done">
+          <span class="rm-status">✓ Done</span>
+          <div>
+            <strong>Window functions &amp; CTEs</strong>
+            <p>Core problem set with worked solutions and commentary on performance trade-offs.</p>
+          </div>
         </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>Snowflake-specific features</strong>
-          <p>FLATTEN, LATERAL, PIVOT, MATCH_RECOGNIZE, and Time Travel — patterns unique to Snowflake's SQL dialect.</p>
+        <div class="rm-item rm-done">
+          <span class="rm-status">✓ Done</span>
+          <div>
+            <strong>SCD Type 1, 2, 3 patterns</strong>
+            <p>Merge-based SCD implementations in T-SQL and Snowflake SQL with full worked examples.</p>
+          </div>
         </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>dbt model equivalents</strong>
-          <p>Translating the SQL patterns into dbt models — showing the SQL → dbt mapping for each problem type.</p>
+        <div class="rm-item rm-progress">
+          <span class="rm-status">In Progress</span>
+          <div>
+            <strong>Query optimisation section</strong>
+            <p>Execution plan analysis and partition pruning problems with before/after performance comparisons.</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <span class="rm-status">Planned</span>
+          <div>
+            <strong>Snowflake-specific features</strong>
+            <p>FLATTEN, LATERAL, PIVOT, MATCH_RECOGNIZE, and Time Travel — patterns unique to Snowflake's SQL dialect.</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <span class="rm-status">Planned</span>
+          <div>
+            <strong>dbt model equivalents</strong>
+            <p>Translating the SQL patterns into dbt models — showing the SQL → dbt mapping for each problem type.</p>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p><small>&copy; 2026 Advaith &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="wrap">
+      &copy; 2026 Advaith &nbsp;·&nbsp;
       <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
       <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-    </small></p>
+    </div>
   </footer>
   <script src="../js/main.js"></script>
 </body>

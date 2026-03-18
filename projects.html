@@ -8,66 +8,68 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="container">
+  <header>
     <nav>
-      <ul><li><strong><a href="index.html">Advaith</a></strong></li></ul>
-      <ul>
+      <a class="nav-brand" href="index.html">Advaith</a>
+      <ul class="nav-links">
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
         <li><a href="skills.html">Skills</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="container">
-    <h1>Projects</h1>
-    <p class="page-subtitle">Data engineering work — pipelines, frameworks, and analytical tooling.</p>
+  <main>
+    <div class="wrap" style="padding-top:2.5rem;padding-bottom:3rem;">
+      <h1 style="font-size:1.75rem;font-weight:800;color:var(--th);margin:0 0 0.4rem;">Projects</h1>
+      <p class="page-lead">Data engineering work — pipelines, frameworks, and analytical tooling.</p>
 
-    <div class="project-cards">
+      <div class="proj-list">
 
-      <a class="project-card" href="projects/pyspark-framework.html">
-        <div class="project-card__img project-card__img--1">
-          <span class="project-card__img-label">PySpark · Databricks · Azure</span>
-        </div>
-        <div class="project-card__body">
-          <h3>Data Engineering Framework</h3>
-          <p>A reusable PySpark library for standardising how pipelines are written — multi-source ingestion, Informatica-style transformations, regression testing, and Delta Lake write-back.</p>
-          <span class="project-card__link">View project →</span>
-        </div>
-      </a>
+        <a class="proj-card" href="projects/pyspark-framework.html">
+          <div class="proj-card__img proj-card__img--1">
+            <span class="proj-card__img-label">PySpark · Databricks · Azure · Snowflake</span>
+          </div>
+          <div class="proj-card__body">
+            <h3>Data Engineering Framework</h3>
+            <p>A reusable PySpark library for standardising how pipelines are written — multi-source ingestion, Informatica-style transformations, regression testing, and Delta Lake write-back.</p>
+            <span class="proj-card__link">View project →</span>
+          </div>
+        </a>
 
-      <a class="project-card" href="projects/snowflake-cortex.html">
-        <div class="project-card__img project-card__img--2">
-          <span class="project-card__img-label">Snowflake · Cortex Analyst · SQL</span>
-        </div>
-        <div class="project-card__body">
-          <h3>Snowflake Cortex Analyst</h3>
-          <p>Natural language analytics layer over a real estate portfolio data model — plain English questions resolved to auditable, SQL-backed answers via Cortex Analyst and Semantic Views.</p>
-          <span class="project-card__link">View project →</span>
-        </div>
-      </a>
+        <a class="proj-card" href="projects/snowflake-cortex.html">
+          <div class="proj-card__img proj-card__img--2">
+            <span class="proj-card__img-label">Snowflake · Cortex Analyst · Semantic Views</span>
+          </div>
+          <div class="proj-card__body">
+            <h3>Snowflake Cortex Analyst</h3>
+            <p>Natural language analytics layer over a real estate portfolio data model — plain English questions resolved to auditable, SQL-backed answers via Cortex Analyst and Semantic Views.</p>
+            <span class="proj-card__link">View project →</span>
+          </div>
+        </a>
 
-      <a class="project-card" href="projects/sql-practice.html">
-        <div class="project-card__img project-card__img--3">
-          <span class="project-card__img-label">SQL · Multi-dialect · Analytics</span>
-        </div>
-        <div class="project-card__body">
-          <h3>SQL Practice Suite</h3>
-          <p>Advanced SQL problems with worked solutions covering window functions, recursive CTEs, SCD modelling, and query optimisation across SQL Server, Snowflake, and Spark SQL.</p>
-          <span class="project-card__link">View project →</span>
-        </div>
-      </a>
+        <a class="proj-card" href="projects/sql-practice.html">
+          <div class="proj-card__img proj-card__img--3">
+            <span class="proj-card__img-label">SQL · Multi-dialect · Analytics</span>
+          </div>
+          <div class="proj-card__body">
+            <h3>SQL Practice Suite</h3>
+            <p>Advanced SQL problems with worked solutions covering window functions, recursive CTEs, SCD modelling, and query optimisation across SQL Server, Snowflake, and Spark SQL.</p>
+            <span class="proj-card__link">View project →</span>
+          </div>
+        </a>
 
+      </div>
     </div>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p><small>&copy; 2026 Advaith &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="wrap">
+      &copy; 2026 Advaith &nbsp;·&nbsp;
       <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
       <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-    </small></p>
+    </div>
   </footer>
   <script src="js/main.js"></script>
 </body>

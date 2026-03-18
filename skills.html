@@ -8,106 +8,108 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="container">
+  <header>
     <nav>
-      <ul><li><strong><a href="index.html">Advaith</a></strong></li></ul>
-      <ul>
+      <a class="nav-brand" href="index.html">Advaith</a>
+      <ul class="nav-links">
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
-        <li><a href="skills.html">Skills</a></li>
+        <li><a href="skills.html" aria-current="page">Skills</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="container">
-    <h1>Skills</h1>
-    <p class="page-subtitle">Technologies and tools I use day-to-day.</p>
+  <main>
+    <div class="wrap" style="padding-top:2.5rem;padding-bottom:3rem;">
+      <h1 style="font-size:1.75rem;font-weight:800;color:var(--th);margin:0 0 0.4rem;">Skills</h1>
+      <p class="page-lead">Technologies and tools I use day-to-day.</p>
 
-    <div class="sk-table">
+      <div class="sk-table">
 
-      <div class="sk-row">
-        <div class="sk-label">Languages</div>
-        <div class="sk-chips">
-          <span class="sc">Python</span>
-          <span class="sc">SQL</span>
-          <span class="sc">PySpark</span>
-          <span class="sc">Bash / Shell</span>
-          <span class="sc">YAML</span>
+        <div class="sk-row">
+          <div class="sk-label">Languages</div>
+          <div class="sk-chips">
+            <span class="sc">Python</span>
+            <span class="sc">SQL</span>
+            <span class="sc">PySpark</span>
+            <span class="sc">Bash / Shell</span>
+            <span class="sc">YAML</span>
+          </div>
         </div>
-      </div>
 
-      <div class="sk-row">
-        <div class="sk-label">Data Platforms</div>
-        <div class="sk-chips">
-          <span class="sc">Databricks</span>
-          <span class="sc">Snowflake</span>
-          <span class="sc">Delta Lake</span>
-          <span class="sc">Azure Synapse</span>
-          <span class="sc">SQL Server</span>
-          <span class="sc">Oracle</span>
-          <span class="sc">Unity Catalog</span>
+        <div class="sk-row">
+          <div class="sk-label">Data Platforms</div>
+          <div class="sk-chips">
+            <span class="sc">Databricks</span>
+            <span class="sc">Snowflake</span>
+            <span class="sc">Delta Lake</span>
+            <span class="sc">Azure Synapse</span>
+            <span class="sc">SQL Server</span>
+            <span class="sc">Oracle</span>
+            <span class="sc">Unity Catalog</span>
+          </div>
         </div>
-      </div>
 
-      <div class="sk-row">
-        <div class="sk-label">Cloud &amp; Infrastructure</div>
-        <div class="sk-chips">
-          <span class="sc">Azure</span>
-          <span class="sc">Azure Data Factory</span>
-          <span class="sc">Azure Blob Storage</span>
-          <span class="sc">Azure SQL</span>
-          <span class="sc">Azure Key Vault</span>
+        <div class="sk-row">
+          <div class="sk-label">Cloud &amp; Infrastructure</div>
+          <div class="sk-chips">
+            <span class="sc">Azure</span>
+            <span class="sc">Azure Data Factory</span>
+            <span class="sc">Azure Blob Storage</span>
+            <span class="sc">Azure SQL</span>
+            <span class="sc">Azure Key Vault</span>
+          </div>
         </div>
-      </div>
 
-      <div class="sk-row">
-        <div class="sk-label">DE Patterns</div>
-        <div class="sk-chips">
-          <span class="sc">ETL / ELT</span>
-          <span class="sc">Incremental Loads</span>
-          <span class="sc">SCD Type 1 / 2 / 3</span>
-          <span class="sc">Delta Merge / Upsert</span>
-          <span class="sc">Medallion Architecture</span>
-          <span class="sc">Schema Evolution</span>
-          <span class="sc">REST API Ingestion</span>
-          <span class="sc">JDBC Ingestion</span>
+        <div class="sk-row">
+          <div class="sk-label">DE Patterns</div>
+          <div class="sk-chips">
+            <span class="sc">ETL / ELT</span>
+            <span class="sc">Incremental Loads</span>
+            <span class="sc">SCD Type 1 / 2 / 3</span>
+            <span class="sc">Delta Merge / Upsert</span>
+            <span class="sc">Medallion Architecture</span>
+            <span class="sc">Schema Evolution</span>
+            <span class="sc">REST API Ingestion</span>
+            <span class="sc">JDBC Ingestion</span>
+          </div>
         </div>
-      </div>
 
-      <div class="sk-row">
-        <div class="sk-label">Tooling &amp; Scheduling</div>
-        <div class="sk-chips">
-          <span class="sc">Control-M</span>
-          <span class="sc">GoAnywhere MFT</span>
-          <span class="sc">dbt</span>
-          <span class="sc">Git / GitHub</span>
-          <span class="sc">GitHub Actions</span>
-          <span class="sc">Docker</span>
-          <span class="sc">Jupyter</span>
-          <span class="sc">VS Code</span>
+        <div class="sk-row">
+          <div class="sk-label">Tooling &amp; Scheduling</div>
+          <div class="sk-chips">
+            <span class="sc">Control-M</span>
+            <span class="sc">GoAnywhere MFT</span>
+            <span class="sc">dbt</span>
+            <span class="sc">Git / GitHub</span>
+            <span class="sc">GitHub Actions</span>
+            <span class="sc">Docker</span>
+            <span class="sc">Jupyter</span>
+            <span class="sc">VS Code</span>
+          </div>
         </div>
-      </div>
 
-      <div class="sk-row">
-        <div class="sk-label">Industries</div>
-        <div class="sk-chips">
-          <span class="sc sc--green">Real Estate</span>
-          <span class="sc sc--green">Finance</span>
-          <span class="sc sc--green">Healthcare</span>
-          <span class="sc sc--green">HR &amp; Workforce</span>
+        <div class="sk-row">
+          <div class="sk-label">Industries</div>
+          <div class="sk-chips">
+            <span class="sc sc--green">Real Estate</span>
+            <span class="sc sc--green">Finance</span>
+            <span class="sc sc--green">Healthcare</span>
+            <span class="sc sc--green">HR &amp; Workforce</span>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p><small>&copy; 2026 Advaith &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="wrap">
+      &copy; 2026 Advaith &nbsp;·&nbsp;
       <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
       <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-    </small></p>
+    </div>
   </footer>
   <script src="js/main.js"></script>
 </body>

@@ -8,13 +8,11 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="container">
+  <header>
     <nav>
-      <ul>
-        <li><strong><a href="index.html">Advaith</a></strong></li>
-      </ul>
-      <ul>
-        <li><a href="about.html">About</a></li>
+      <a class="nav-brand" href="index.html">Advaith</a>
+      <ul class="nav-links">
+        <li><a href="about.html" aria-current="page">About</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="skills.html">Skills</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -22,74 +20,71 @@
     </nav>
   </header>
 
-  <main class="container">
-    <h1>About Me</h1>
+  <main>
+    <div class="wrap" style="padding-top:2.5rem;padding-bottom:3rem;">
+      <h1 style="font-size:1.75rem;font-weight:800;color:var(--th);margin:0 0 1.75rem;">About Me</h1>
 
-    <div class="about-grid">
-      <div>
-        <img src="assets/profile.jpeg" alt="Advaith" class="about-photo" />
-
-        <div class="highlight-pills" style="margin-top:1.5rem;">
-          <span class="highlight-pill">5+ Years Experience</span>
-          <span class="highlight-pill">Fortune 500 Clients</span>
-          <span class="highlight-pill">Real Estate</span>
-          <span class="highlight-pill">Finance</span>
-          <span class="highlight-pill">Healthcare</span>
-          <span class="highlight-pill">HR &amp; Workforce</span>
-        </div>
-      </div>
-
-      <div>
-        <p class="about-lead">
-          I've spent the last five-plus years deep in enterprise data engineering — building the pipelines
-          and platforms that large organisations actually depend on day-to-day.
-        </p>
-        <p style="color:#4b5563;line-height:1.85;">
-          My work tends to sit in the hard middle ground: where legacy on-prem systems meet cloud architecture,
-          where data quality decisions have real downstream consequences, and where engineering trade-offs show
-          up in platform costs and SLA reliability. I've delivered across real estate, finance, and healthcare
-          for Fortune 500 clients — usually parachuted in to modernise something brittle, scale something that
-          wasn't built to last, or build something from scratch under time pressure.
-        </p>
-        <p style="color:#4b5563;line-height:1.85;">
-          Day-to-day I work on Azure Databricks and Snowflake — designing ingestion patterns, building
-          transformation frameworks, tuning performance, and making sure things don't break at 2am.
-        </p>
-
-        <h3 style="margin-top:1.75rem;">What I work with</h3>
-        <ul class="about-list">
-          <li><strong>Platforms</strong> — Azure Databricks, Snowflake, Azure Data Factory, Delta Lake, Unity Catalog</li>
-          <li><strong>Languages</strong> — Python (PySpark, pandas), SQL (T-SQL, Snowflake, Spark SQL)</li>
-          <li><strong>Patterns</strong> — Medallion architecture, SCD, incremental loads, Delta merge/upsert</li>
-          <li><strong>Tooling</strong> — dbt, Unity Catalog, Jupyter, Git, Docker, VS Code</li>
-        </ul>
-
-        <h3 style="margin-top:1.5rem;">Currently exploring</h3>
-        <div class="skills-grid">
-          <span class="skill-chip">Snowflake Cortex AI</span>
-          <span class="skill-chip">dbt Core</span>
-          <span class="skill-chip">Great Expectations</span>
-          <span class="skill-chip">Data Mesh patterns</span>
+      <div class="about-grid">
+        <div>
+          <img src="assets/profile.jpeg" alt="Advaith" class="about-photo" />
+          <div class="pill-row">
+            <span class="pill">5+ Years</span>
+            <span class="pill">Fortune 500</span>
+            <span class="pill">Real Estate</span>
+            <span class="pill">Finance</span>
+            <span class="pill">Healthcare</span>
+            <span class="pill">HR &amp; Workforce</span>
+          </div>
         </div>
 
-        <div style="margin-top:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-          <a href="projects.html" role="button">See my projects</a>
-          <a href="contact.html" role="button" class="secondary">Get in touch</a>
+        <div>
+          <p class="about-lead">
+            I've spent the last five-plus years deep in enterprise data engineering — building the pipelines
+            and platforms that large organisations actually depend on day-to-day.
+          </p>
+          <p style="color:#4b5563;line-height:1.85;font-size:.9rem;">
+            My work tends to sit in the hard middle ground: where legacy on-prem systems meet cloud architecture,
+            where data quality decisions have real downstream consequences, and where engineering trade-offs show
+            up in platform costs and SLA reliability. I've delivered across real estate, finance, and healthcare
+            for Fortune 500 clients — usually parachuted in to modernise something brittle, scale something that
+            wasn't built to last, or build something from scratch under time pressure.
+          </p>
+          <p style="color:#4b5563;line-height:1.85;font-size:.9rem;">
+            Day-to-day I work on Azure Databricks and Snowflake — designing ingestion patterns, building
+            transformation frameworks, tuning performance, and making sure things don't break at 2am.
+          </p>
+
+          <h3 style="margin-top:1.5rem;font-size:1rem;font-weight:700;color:var(--th);">What I work with</h3>
+          <ul class="about-list">
+            <li><strong>Platforms</strong> — Azure Databricks, Snowflake, Azure Data Factory, Delta Lake, Unity Catalog</li>
+            <li><strong>Languages</strong> — Python (PySpark, pandas), SQL (T-SQL, Snowflake, Spark SQL)</li>
+            <li><strong>Patterns</strong> — Medallion architecture, SCD, incremental loads, Delta merge/upsert</li>
+            <li><strong>Tooling</strong> — dbt, Unity Catalog, Jupyter, Git, Docker, VS Code</li>
+          </ul>
+
+          <h3 style="margin-top:1.5rem;font-size:1rem;font-weight:700;color:var(--th);">Currently exploring</h3>
+          <div class="skills-grid" style="margin-bottom:1.5rem;">
+            <span class="skill-chip">Snowflake Cortex AI</span>
+            <span class="skill-chip">dbt Core</span>
+            <span class="skill-chip">Great Expectations</span>
+            <span class="skill-chip">Data Mesh patterns</span>
+          </div>
+
+          <div class="hero-btns">
+            <a href="projects.html" class="btn btn-primary">See my projects</a>
+            <a href="contact.html" class="btn btn-outline">Get in touch</a>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p>
-      <small>
-        &copy; 2026 Advaith &nbsp;·&nbsp;
-        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
-        &nbsp;·&nbsp;
-        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-      </small>
-    </p>
+  <footer class="site-footer">
+    <div class="wrap">
+      &copy; 2026 Advaith &nbsp;·&nbsp;
+      <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
   </footer>
 
   <script src="js/main.js"></script>

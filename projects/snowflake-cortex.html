@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header class="container">
+  <header>
     <nav>
-      <ul><li><strong><a href="../index.html">Advaith</a></strong></li></ul>
-      <ul>
+      <a class="nav-brand" href="../index.html">Advaith</a>
+      <ul class="nav-links">
         <li><a href="../about.html">About</a></li>
         <li><a href="../projects.html">Projects</a></li>
         <li><a href="../skills.html">Skills</a></li>
@@ -20,109 +20,111 @@
     </nav>
   </header>
 
-  <main class="container">
-    <div class="project-header">
-      <a href="../projects.html" class="back-link">← All Projects</a>
-      <h1 style="margin-top:0.65rem;">Snowflake Cortex Analyst</h1>
-      <div class="project-meta">
-        <span class="tag">Snowflake</span>
-        <span class="tag">Cortex Analyst</span>
-        <span class="tag">Semantic Views</span>
-        <span class="tag">SQL</span>
-        <span class="tag">NLP</span>
+  <main>
+    <div class="wrap" style="padding-top:2rem;padding-bottom:3rem;">
+      <div class="proj-header">
+        <a href="../projects.html" class="back-link">← All Projects</a>
+        <h1 style="margin-top:0.65rem;font-size:1.6rem;font-weight:800;color:var(--th);">Snowflake Cortex Analyst</h1>
+        <div class="proj-tags">
+          <span class="ptag">Snowflake</span>
+          <span class="ptag">Cortex Analyst</span>
+          <span class="ptag">Semantic Views</span>
+          <span class="ptag">SQL</span>
+          <span class="ptag">NLP</span>
+        </div>
+        <p>A natural language analytics layer over a real estate portfolio data model — plain English questions resolved to auditable, SQL-backed answers without writing a single query.</p>
       </div>
-      <p>A natural language analytics layer over a real estate portfolio data model — plain English questions resolved to auditable, SQL-backed answers without writing a single query.</p>
-    </div>
 
-    <h2>The Problem</h2>
-    <p>Business stakeholders typically wait days for ad-hoc data questions to be answered. The bottleneck isn't the data — it's the translation layer between a business question and a SQL query. Cortex Analyst removes that bottleneck: users ask in plain English, Cortex generates and runs the SQL, and returns both the result and the query it used so technical stakeholders can verify it.</p>
+      <h2>The Problem</h2>
+      <p>Business stakeholders typically wait days for ad-hoc data questions to be answered. The bottleneck isn't the data — it's the translation layer between a business question and a SQL query. Cortex Analyst removes that bottleneck: users ask in plain English, Cortex generates and runs the SQL, and returns both the result and the query it used so technical stakeholders can verify it.</p>
 
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">💬</div>
-        <h4>Natural Language → SQL</h4>
-        <p>Non-technical users ask questions in plain English. Cortex Analyst generates correct SQL against your actual schema with no prompt engineering needed.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧠</div>
-        <h4>Semantic Views</h4>
-        <p>A SQL-native semantic layer describing tables, relationships, dimensions, and metrics so Cortex understands your business context precisely.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <h4>Fully Auditable</h4>
-        <p>Every answer includes the SQL that generated it. Stakeholders can inspect, validate, and trust the output rather than treating it as a black box.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏗️</div>
-        <h4>Zero Extra Infrastructure</h4>
-        <p>Runs entirely inside Snowflake. No external endpoints, no data movement, governed by your existing Snowflake roles and permissions.</p>
-      </div>
-    </div>
-
-    <h2>What I Built</h2>
-    <p>A real estate portfolio analytics POC for a fictional brokerage operating across five US markets. The star schema covers property transactions, agent performance, client activity, and operating expenses. Sample data was generated using Snowflake's <code>GENERATOR</code> and <code>UNIFORM</code> functions, producing ~180 transactions and ~120 expense records across a full year.</p>
-    <p>On top of the data model, a Semantic View maps business-friendly names and pre-defined metrics onto the underlying tables — <em>total commission revenue</em>, <em>average days on market</em>, <em>price-to-list ratio</em> — so Cortex Analyst can answer questions about agent rankings, market trends, and budget variances without any SQL knowledge from the user.</p>
-
-    <h2>Questions It Can Answer</h2>
-    <div class="query-examples">
-      <div class="query-example">
-        <span class="query-q">"Which agents generated the most commission this year?"</span>
-        <span class="query-note">→ groups by agent_name, aggregates total_commission_revenue, ranks descending</span>
-      </div>
-      <div class="query-example">
-        <span class="query-q">"What is the average days on market by property type?"</span>
-        <span class="query-note">→ groups by property_type dimension, returns avg_days_on_market metric</span>
-      </div>
-      <div class="query-example">
-        <span class="query-q">"Which markets have the highest price-to-list ratio?"</span>
-        <span class="query-note">→ joins property market, aggregates avg_price_to_list_ratio per market</span>
-      </div>
-      <div class="query-example">
-        <span class="query-q">"What expense categories are over budget?"</span>
-        <span class="query-note">→ filters on negative budget_variance in operating expenses fact table</span>
-      </div>
-    </div>
-
-    <h2>Roadmap</h2>
-    <div class="roadmap">
-      <div class="roadmap-item roadmap-item--done">
-        <span class="roadmap-status">✓ Done</span>
-        <div>
-          <strong>Real estate POC — data model, semantic view, Cortex Analyst</strong>
-          <p>Full star schema, sample data generation, semantic view, and Cortex Analyst tested with business questions.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fi">💬</div>
+          <h4>Natural Language → SQL</h4>
+          <p>Non-technical users ask questions in plain English. Cortex Analyst generates correct SQL against your actual schema with no prompt engineering needed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🧠</div>
+          <h4>Semantic Views</h4>
+          <p>A SQL-native semantic layer describing tables, relationships, dimensions, and metrics so Cortex understands your business context precisely.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🔍</div>
+          <h4>Fully Auditable</h4>
+          <p>Every answer includes the SQL that generated it. Stakeholders can inspect, validate, and trust the output rather than treating it as a black box.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🏗️</div>
+          <h4>Zero Extra Infrastructure</h4>
+          <p>Runs entirely inside Snowflake. No external endpoints, no data movement, governed by your existing Snowflake roles and permissions.</p>
         </div>
       </div>
-      <div class="roadmap-item roadmap-item--progress">
-        <span class="roadmap-status">In Progress</span>
-        <div>
-          <strong>Snowflake Intelligence chat interface</strong>
-          <p>Wrapping Cortex Analyst in Snowflake Intelligence for a conversational UI accessible to non-technical stakeholders.</p>
+
+      <h2>What I Built</h2>
+      <p>A real estate portfolio analytics POC for a fictional brokerage operating across five US markets. The star schema covers property transactions, agent performance, client activity, and operating expenses. Sample data was generated using Snowflake's <code>GENERATOR</code> and <code>UNIFORM</code> functions, producing ~180 transactions and ~120 expense records across a full year.</p>
+      <p>On top of the data model, a Semantic View maps business-friendly names and pre-defined metrics onto the underlying tables — <em>total commission revenue</em>, <em>average days on market</em>, <em>price-to-list ratio</em> — so Cortex Analyst can answer questions about agent rankings, market trends, and budget variances without any SQL knowledge from the user.</p>
+
+      <h2>Questions It Can Answer</h2>
+      <div class="qex">
+        <div class="qex-item">
+          <span class="qq">"Which agents generated the most commission this year?"</span>
+          <span class="qn">→ groups by agent_name, aggregates total_commission_revenue, ranks descending</span>
+        </div>
+        <div class="qex-item">
+          <span class="qq">"What is the average days on market by property type?"</span>
+          <span class="qn">→ groups by property_type dimension, returns avg_days_on_market metric</span>
+        </div>
+        <div class="qex-item">
+          <span class="qq">"Which markets have the highest price-to-list ratio?"</span>
+          <span class="qn">→ joins property market, aggregates avg_price_to_list_ratio per market</span>
+        </div>
+        <div class="qex-item">
+          <span class="qq">"What expense categories are over budget?"</span>
+          <span class="qn">→ filters on negative budget_variance in operating expenses fact table</span>
         </div>
       </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>Cortex Search + RAG pattern</strong>
-          <p>Combining Cortex Search (vector search on documents) with Cortex Analyst in a single Snowflake Intelligence agent.</p>
+
+      <h2>Roadmap</h2>
+      <div class="roadmap">
+        <div class="rm-item rm-done">
+          <span class="rm-status">✓ Done</span>
+          <div>
+            <strong>Real estate POC — data model, semantic view, Cortex Analyst</strong>
+            <p>Full star schema, sample data generation, semantic view, and Cortex Analyst tested with business questions.</p>
+          </div>
         </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>Streamlit in Snowflake dashboard</strong>
-          <p>Interactive charts hosted inside Snowflake built on the same semantic view — no external BI tool required.</p>
+        <div class="rm-item rm-progress">
+          <span class="rm-status">In Progress</span>
+          <div>
+            <strong>Snowflake Intelligence chat interface</strong>
+            <p>Wrapping Cortex Analyst in Snowflake Intelligence for a conversational UI accessible to non-technical stakeholders.</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <span class="rm-status">Planned</span>
+          <div>
+            <strong>Cortex Search + RAG pattern</strong>
+            <p>Combining Cortex Search (vector search on documents) with Cortex Analyst in a single Snowflake Intelligence agent.</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <span class="rm-status">Planned</span>
+          <div>
+            <strong>Streamlit in Snowflake dashboard</strong>
+            <p>Interactive charts hosted inside Snowflake built on the same semantic view — no external BI tool required.</p>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p><small>&copy; 2026 Advaith &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="wrap">
+      &copy; 2026 Advaith &nbsp;·&nbsp;
       <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
       <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-    </small></p>
+    </div>
   </footer>
   <script src="../js/main.js"></script>
 </body>

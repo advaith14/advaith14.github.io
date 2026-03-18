@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <header class="container">
+  <header>
     <nav>
-      <ul><li><strong><a href="../index.html">Advaith</a></strong></li></ul>
-      <ul>
+      <a class="nav-brand" href="../index.html">Advaith</a>
+      <ul class="nav-links">
         <li><a href="../about.html">About</a></li>
         <li><a href="../projects.html">Projects</a></li>
         <li><a href="../skills.html">Skills</a></li>
@@ -20,79 +20,81 @@
     </nav>
   </header>
 
-  <main class="container">
-    <div class="project-header">
-      <a href="../projects.html" class="back-link">← All Projects</a>
-      <h1 style="margin-top:0.65rem;">Data Engineering Framework</h1>
-      <div class="project-meta">
-        <span class="tag">Python</span>
-        <span class="tag">PySpark</span>
-        <span class="tag">Databricks</span>
-        <span class="tag">Azure</span>
-        <span class="tag">Snowflake</span>
-        <span class="tag">Delta Lake</span>
+  <main>
+    <div class="wrap" style="padding-top:2rem;padding-bottom:3rem;">
+      <div class="proj-header">
+        <a href="../projects.html" class="back-link">← All Projects</a>
+        <h1 style="margin-top:0.65rem;font-size:1.6rem;font-weight:800;color:var(--th);">Data Engineering Framework</h1>
+        <div class="proj-tags">
+          <span class="ptag">Python</span>
+          <span class="ptag">PySpark</span>
+          <span class="ptag">Databricks</span>
+          <span class="ptag">Azure</span>
+          <span class="ptag">Snowflake</span>
+          <span class="ptag">Delta Lake</span>
+        </div>
+        <p>A reusable PySpark library for standardising how data pipelines are written across a team — covering the full lifecycle from connection and ingestion through to transformation, testing, and write-back.</p>
       </div>
-      <p>A reusable PySpark library for standardising how data pipelines are written across a team — covering the full lifecycle from connection and ingestion through to transformation, testing, and write-back.</p>
-    </div>
 
-    <h2>Overview</h2>
-    <p>Data engineering teams often end up with pipelines that work but don't scale — each one written slightly differently, with inconsistent patterns for joining, testing, and writing data. This framework solves that by providing a single set of well-tested functions that cover every stage of a pipeline, so building a new one becomes assembly work rather than greenfield engineering each time.</p>
+      <h2>Overview</h2>
+      <p>Data engineering teams often end up with pipelines that work but don't scale — each one written slightly differently, with inconsistent patterns for joining, testing, and writing data. This framework solves that by providing a single set of well-tested functions that cover every stage of a pipeline, so building a new one becomes assembly work rather than greenfield engineering each time.</p>
 
-    <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h4>Multi-Source Ingestion</h4>
-        <p>Unified connector pattern across JDBC (SQL Server, Oracle), Azure Blob Storage, Snowflake, Salesforce, and REST APIs.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h4>Transformation Library</h4>
-        <p>Informatica-inspired functions — router, joiner, MD5 checksum, SCD flag generation, and lookup — all built in PySpark.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧪</div>
-        <h4>Regression Testing</h4>
-        <p>Schema comparison, row-level hash diffs, and cell-by-cell mismatch reporting to catch data drift before it reaches production.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏗️</div>
-        <h4>Write-Back Patterns</h4>
-        <p>Delta Lake merge/upsert with auto-generated conditions, table swap for full reloads, and Databricks Unity Catalog writes.</p>
-      </div>
-    </div>
-
-    <h2>Roadmap</h2>
-    <div class="roadmap">
-      <div class="roadmap-item roadmap-item--done">
-        <span class="roadmap-status">✓ Done</span>
-        <div>
-          <strong>Local testing notebook</strong>
-          <p>Jupyter notebook validating all utility functions locally with PySpark — no cloud credentials required.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fi">⚡</div>
+          <h4>Multi-Source Ingestion</h4>
+          <p>Unified connector pattern across JDBC (SQL Server, Oracle), Azure Blob Storage, Snowflake, Salesforce, and REST APIs.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🔄</div>
+          <h4>Transformation Library</h4>
+          <p>Informatica-inspired functions — router, joiner, MD5 checksum, SCD flag generation, and lookup — all built in PySpark.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🧪</div>
+          <h4>Regression Testing</h4>
+          <p>Schema comparison, row-level hash diffs, and cell-by-cell mismatch reporting to catch data drift before it reaches production.</p>
+        </div>
+        <div class="feature-card">
+          <div class="fi">🏗️</div>
+          <h4>Write-Back Patterns</h4>
+          <p>Delta Lake merge/upsert with auto-generated conditions, table swap for full reloads, and Databricks Unity Catalog writes.</p>
         </div>
       </div>
-      <div class="roadmap-item roadmap-item--progress">
-        <span class="roadmap-status">In Progress</span>
-        <div>
-          <strong>Databricks Community Edition end-to-end tests</strong>
-          <p>Notebook tests on Databricks CE covering Delta Lake merge, Unity Catalog writes, and secret scope integration.</p>
+
+      <h2>Roadmap</h2>
+      <div class="roadmap">
+        <div class="rm-item rm-done">
+          <span class="rm-status">✓ Done</span>
+          <div>
+            <strong>Local testing notebook</strong>
+            <p>Jupyter notebook validating all utility functions locally with PySpark — no cloud credentials required.</p>
+          </div>
         </div>
-      </div>
-      <div class="roadmap-item roadmap-item--planned">
-        <span class="roadmap-status">Planned</span>
-        <div>
-          <strong>Snowflake + dbt integration</strong>
-          <p>Live Snowflake read/write tests followed by a dbt project modelling ingested data through bronze → silver → gold layers.</p>
+        <div class="rm-item rm-progress">
+          <span class="rm-status">In Progress</span>
+          <div>
+            <strong>Databricks Community Edition end-to-end tests</strong>
+            <p>Notebook tests on Databricks CE covering Delta Lake merge, Unity Catalog writes, and secret scope integration.</p>
+          </div>
+        </div>
+        <div class="rm-item">
+          <span class="rm-status">Planned</span>
+          <div>
+            <strong>Snowflake + dbt integration</strong>
+            <p>Live Snowflake read/write tests followed by a dbt project modelling ingested data through bronze → silver → gold layers.</p>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p><small>&copy; 2026 Advaith &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="wrap">
+      &copy; 2026 Advaith &nbsp;·&nbsp;
       <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
       <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-    </small></p>
+    </div>
   </footer>
   <script src="../js/main.js"></script>
 </body>
