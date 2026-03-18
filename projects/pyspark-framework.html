@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Engineering Framework | Advaith</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong><a href="../index.html">Advaith</a></strong></li>
+      </ul>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../skills.html">Skills</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="project-header">
+      <a href="../projects.html">← All Projects</a>
+      <h1 style="margin-top:0.75rem;">Data Engineering Framework</h1>
+      <div class="project-meta">
+        <span class="tag">Python</span>
+        <span class="tag">PySpark</span>
+        <span class="tag">Databricks</span>
+        <span class="tag">Azure</span>
+        <span class="tag">Snowflake</span>
+        <span class="tag">Delta Lake</span>
+      </div>
+      <p>
+        A production-grade PySpark / Databricks data engineering framework covering multi-source ingestion,
+        Informatica-style transformations, regression testing, and Unity Catalog write-back.
+      </p>
+      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button" class="secondary">
+        View on GitHub ↗
+      </a>
+    </div>
+
+    <h2>Overview</h2>
+    <p>
+      This framework was built for a production Databricks environment to standardise how data pipelines
+      are written across a team. Rather than each pipeline being ad-hoc, the framework provides a library
+      of reusable functions that cover the full lifecycle: connect → read → transform → test → write.
+    </p>
+    <p>
+      The codebase (~4,600 lines) has been sanitised for public use — all client-specific names,
+      credentials, and server addresses have been replaced with generic placeholders.
+    </p>
+
+    <h2>Key Capabilities</h2>
+
+    <h3>Multi-Source Ingestion</h3>
+    <ul>
+      <li><strong>On-Prem JDBC</strong> — SQL Server and Oracle via configurable connection profiles</li>
+      <li><strong>Azure Blob Storage</strong> — CSV, JSON, text, and Delta formats</li>
+      <li><strong>Snowflake</strong> — Read/write via the Spark-Snowflake connector with RSA key auth</li>
+      <li><strong>Salesforce</strong> — Bulk and standard API insert, update, and upsert via simple-salesforce</li>
+      <li><strong>REST APIs</strong> — Paginated fetch with OAuth2 token refresh</li>
+    </ul>
+
+    <h3>Transformation Utilities</h3>
+    <p>A set of Informatica-inspired transformation functions that mirror the patterns used in visual ETL tools:</p>
+    <ul>
+      <li><code>infa_router</code> — splits a DataFrame into multiple based on filter conditions</li>
+      <li><code>infa_joiner</code> — wraps Spark join with sensible defaults</li>
+      <li><code>md5_checksum</code> — generates MD5 hashes across a column list for change detection</li>
+      <li><code>generate_insert_update_delete_flags</code> — SCD-style IUD flag generation from a joined staging/target DataFrame</li>
+      <li><code>lookup_dataframe</code> — left join lookup with configurable return columns</li>
+    </ul>
+
+    <h3>Regression Testing</h3>
+    <ul>
+      <li><code>compare_schemas</code> — validates column names and types between two DataFrames</li>
+      <li><code>hash_comp</code> — row-level MD5 comparison to detect data drift</li>
+      <li><code>compare_dataframes</code> — cell-by-cell diff with mismatch reporting</li>
+      <li><code>check_for_special_characters</code> — flags columns containing unexpected characters</li>
+    </ul>
+
+    <h3>Write-Back Patterns</h3>
+    <ul>
+      <li>Delta Lake merge (upsert) with generated <code>WHEN MATCHED / WHEN NOT MATCHED</code> conditions</li>
+      <li>Table swap (overwrite via rename) for full-reload patterns</li>
+      <li>Databricks Unity Catalog schema-qualified writes</li>
+      <li>Snowflake stored proc execution</li>
+    </ul>
+
+    <h2>Code Sample</h2>
+    <p>Generating SCD-style IUD flags from a joined staging and target DataFrame:</p>
+    <pre><code class="language-python">
+# Join staging data with current target
+df_joined = infa_joiner(
+    left_df=df_stage,
+    right_df=df_target,
+    join_type="left",
+    join_keys=["customer_id"]
+)
+
+# Generate Insert / Update / Delete flags
+flag_dict = {
+    "insert_flag":  "customer_id_right IS NULL",
+    "update_flag":  "customer_id_right IS NOT NULL AND md5_stage != md5_target",
+    "delete_flag":  "active_right = 0"
+}
+df_flagged = generate_insert_update_delete_flags(df_joined, flag_dict)
+
+# Split into separate DataFrames per operation
+result = generate_insert_update_delete_dataframes(df_flagged, {
+    "insert": "insert_flag = 1",
+    "update": "update_flag = 1",
+    "delete": "delete_flag = 1"
+})
+df_inserts = result["insert"]
+df_updates = result["update"]
+    </code></pre>
+
+    <h2>Local Testing</h2>
+    <p>
+      The pure utility functions (global utils, Informatica transformations, regression testing) can be run
+      locally with PySpark without any cloud credentials. A Jupyter notebook
+      (<code>python/test_framework_local.ipynb</code>) in the repo demonstrates all functions end-to-end.
+    </p>
+
+    <p style="margin-top:2rem;">
+      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button">
+        Explore the code on GitHub ↗
+      </a>
+    </p>
+  </main>
+
+  <footer class="container">
+    <hr />
+    <p>
+      <small>
+        &copy; 2026 Advaith &nbsp;·&nbsp;
+        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+      </small>
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

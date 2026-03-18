@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Advaith</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong><a href="index.html">Advaith</a></strong></li>
+      </ul>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container" style="max-width:600px;">
+    <h1>Get in Touch</h1>
+    <p>Have a question, opportunity, or just want to connect? Fill in the form below.</p>
+
+    <!-- Formspree — replace YOUR_FORM_ID with your Formspree form ID after signing up at formspree.io -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label for="name">
+        Name
+        <input type="text" id="name" name="name" placeholder="Your name" required />
+      </label>
+      <label for="email">
+        Email
+        <input type="email" id="email" name="email" placeholder="your@email.com" required />
+      </label>
+      <label for="message">
+        Message
+        <textarea id="message" name="message" placeholder="Your message..." rows="5" required></textarea>
+      </label>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <hr />
+    <p>Or reach me directly:</p>
+    <ul>
+      <li><a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub — advaith14</a></li>
+      <li><a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn — advaith14</a></li>
+    </ul>
+  </main>
+
+  <footer class="container">
+    <hr />
+    <p>
+      <small>
+        &copy; 2026 Advaith &nbsp;·&nbsp;
+        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+      </small>
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

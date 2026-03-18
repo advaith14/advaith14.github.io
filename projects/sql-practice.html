@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SQL Practice Suite | Advaith</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong><a href="../index.html">Advaith</a></strong></li>
+      </ul>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../skills.html">Skills</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="project-header">
+      <a href="../projects.html">← All Projects</a>
+      <h1 style="margin-top:0.75rem;">SQL Practice Suite</h1>
+      <div class="project-meta">
+        <span class="tag">SQL</span>
+        <span class="tag">SQL Server</span>
+        <span class="tag">Snowflake</span>
+        <span class="tag">Analytics</span>
+      </div>
+      <p>
+        Advanced SQL problems with worked solutions covering window functions, recursive CTEs,
+        query optimisation, and data modelling patterns across multiple dialects.
+      </p>
+      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button" class="secondary">
+        View on GitHub ↗
+      </a>
+    </div>
+
+    <h2>Overview</h2>
+    <p>
+      A structured set of SQL exercises aimed at building depth beyond basic SELECT statements.
+      Each problem includes the schema, the question, and a worked solution with commentary on
+      performance and readability trade-offs.
+    </p>
+
+    <h2>Topics Covered</h2>
+
+    <h3>Window Functions</h3>
+    <p>Ranking, running aggregates, and lead/lag across partitions.</p>
+    <pre><code class="language-sql">
+-- Top N customers by revenue per region
+SELECT *
+FROM (
+    SELECT
+        region,
+        customer_id,
+        SUM(order_value) AS total_revenue,
+        RANK() OVER (PARTITION BY region ORDER BY SUM(order_value) DESC) AS rk
+    FROM orders
+    GROUP BY region, customer_id
+) ranked
+WHERE rk <= 3;
+    </code></pre>
+
+    <h3>Recursive CTEs</h3>
+    <p>Hierarchy traversal — org charts, bill of materials, category trees.</p>
+    <pre><code class="language-sql">
+-- Walk an org chart from a given employee upward to the root
+WITH RECURSIVE org_tree AS (
+    SELECT employee_id, manager_id, name, 0 AS level
+    FROM employees
+    WHERE employee_id = 42            -- start node
+
+    UNION ALL
+
+    SELECT e.employee_id, e.manager_id, e.name, t.level + 1
+    FROM employees e
+    INNER JOIN org_tree t ON e.employee_id = t.manager_id
+)
+SELECT * FROM org_tree ORDER BY level;
+    </code></pre>
+
+    <h3>Slowly Changing Dimensions</h3>
+    <p>SCD Type 2 — tracking historical changes with effective date ranges.</p>
+    <pre><code class="language-sql">
+-- Expire old record and insert new one (SCD Type 2 merge pattern)
+MERGE INTO dim_customer AS tgt
+USING stage_customer AS src
+  ON tgt.customer_id = src.customer_id
+  AND tgt.is_current = 1
+WHEN MATCHED AND (
+    tgt.address != src.address OR tgt.email != src.email
+) THEN UPDATE SET
+    tgt.effective_end   = CURRENT_DATE - 1,
+    tgt.is_current      = 0
+WHEN NOT MATCHED THEN INSERT (
+    customer_id, address, email,
+    effective_start, effective_end, is_current
+) VALUES (
+    src.customer_id, src.address, src.email,
+    CURRENT_DATE, '9999-12-31', 1
+);
+    </code></pre>
+
+    <h2>Dialects Covered</h2>
+    <div class="skills-grid">
+      <span class="skill-chip">ANSI SQL</span>
+      <span class="skill-chip">SQL Server (T-SQL)</span>
+      <span class="skill-chip">Snowflake SQL</span>
+      <span class="skill-chip">Spark SQL</span>
+    </div>
+
+    <p style="margin-top:2rem;">
+      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button">
+        Browse all problems on GitHub ↗
+      </a>
+    </p>
+  </main>
+
+  <footer class="container">
+    <hr />
+    <p>
+      <small>
+        &copy; 2026 Advaith &nbsp;·&nbsp;
+        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+      </small>
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

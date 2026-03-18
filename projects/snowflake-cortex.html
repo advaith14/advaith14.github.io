@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snowflake Cortex AI | Advaith</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong><a href="../index.html">Advaith</a></strong></li>
+      </ul>
+      <ul>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../projects.html">Projects</a></li>
+        <li><a href="../skills.html">Skills</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="project-header">
+      <a href="../projects.html">← All Projects</a>
+      <h1 style="margin-top:0.75rem;">Snowflake Cortex AI</h1>
+      <div class="project-meta">
+        <span class="tag">Snowflake</span>
+        <span class="tag">SQL</span>
+        <span class="tag">ML / NLP</span>
+        <span class="tag">Cortex</span>
+      </div>
+      <p>
+        In-warehouse ML inference using Snowflake Cortex functions — sentiment analysis, text classification,
+        and LLM-powered summarisation without leaving the data platform.
+      </p>
+      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button" class="secondary">
+        View on GitHub ↗
+      </a>
+    </div>
+
+    <h2>Overview</h2>
+    <p>
+      Snowflake Cortex provides a set of SQL functions that run large language model and ML inference
+      directly on data stored in Snowflake — no separate ML platform, no data movement, no API keys to
+      manage per user. This project explores the key Cortex functions and compares the approach to
+      calling an external API from a pipeline.
+    </p>
+
+    <h2>Functions Explored</h2>
+
+    <h3>SENTIMENT</h3>
+    <p>Returns a score from -1 (negative) to 1 (positive) for a text column.</p>
+    <pre><code class="language-sql">
+SELECT
+    review_id,
+    review_text,
+    SNOWFLAKE.CORTEX.SENTIMENT(review_text) AS sentiment_score
+FROM customer_reviews;
+    </code></pre>
+
+    <h3>CLASSIFY_TEXT</h3>
+    <p>Zero-shot classification — assign each row to one of your provided categories.</p>
+    <pre><code class="language-sql">
+SELECT
+    ticket_id,
+    description,
+    SNOWFLAKE.CORTEX.CLASSIFY_TEXT(
+        description,
+        ['billing', 'technical', 'account', 'general']
+    )['label']::STRING AS category
+FROM support_tickets;
+    </code></pre>
+
+    <h3>COMPLETE (LLM prompting)</h3>
+    <p>Prompt an LLM inline in SQL. Useful for summarisation, extraction, and structured output.</p>
+    <pre><code class="language-sql">
+SELECT
+    contract_id,
+    SNOWFLAKE.CORTEX.COMPLETE(
+        'mistral-large',
+        CONCAT(
+            'Summarise the following contract clause in one sentence: ',
+            clause_text
+        )
+    ) AS summary
+FROM contract_clauses
+LIMIT 100;
+    </code></pre>
+
+    <h2>Key Findings</h2>
+    <ul>
+      <li>Cortex functions run as SQL — no Python environment, no dependencies, no network egress</li>
+      <li>Latency is higher than a batch inference job for large volumes; best suited for &lt;100k rows or async batch</li>
+      <li>
+        <code>COMPLETE</code> with structured prompts (JSON output instructions) is reliable for extraction tasks
+        but needs prompt engineering to avoid hallucinations on short texts
+      </li>
+      <li>Cost is per-token, billed via Snowflake credits — cheaper at scale than many external LLM APIs</li>
+      <li>Zero data-sharing risk — data never leaves your Snowflake account</li>
+    </ul>
+
+    <p style="margin-top:2rem;">
+      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button">
+        View the SQL scripts on GitHub ↗
+      </a>
+    </p>
+  </main>
+
+  <footer class="container">
+    <hr />
+    <p>
+      <small>
+        &copy; 2026 Advaith &nbsp;·&nbsp;
+        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+      </small>
+    </p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

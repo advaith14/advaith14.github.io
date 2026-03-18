@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Advaith</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong><a href="index.html">Advaith</a></strong></li>
+      </ul>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Projects</h1>
+    <p>A selection of data engineering work — pipelines, frameworks, and analytical tooling.</p>
+
+    <div class="grid">
+      <article>
+        <header>
+          <span class="tag">PySpark · Databricks · Azure</span>
+          <h3><a href="projects/pyspark-framework.html">Data Engineering Framework</a></h3>
+        </header>
+        <p>
+          Production-grade PySpark framework (~4,600 lines) covering multi-source ingestion from JDBC,
+          Azure Blob, Snowflake, and Salesforce. Includes Informatica-style transformation utilities
+          (router, joiner, checksum, SCD flags), regression testing helpers, and Databricks Unity Catalog
+          write-back patterns.
+        </p>
+        <ul>
+          <li>Ingestion from 5+ source types via a unified connector pattern</li>
+          <li>Delta Lake merge / upsert / table-swap strategies</li>
+          <li>Schema + hash-based regression testing suite</li>
+          <li>Sanitised and documented for public portfolio</li>
+        </ul>
+        <footer>
+          <a href="projects/pyspark-framework.html">Read more →</a>
+          &nbsp;
+          <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener">GitHub ↗</a>
+        </footer>
+      </article>
+
+      <article>
+        <header>
+          <span class="tag">Snowflake · SQL · ML</span>
+          <h3><a href="projects/snowflake-cortex.html">Snowflake Cortex AI</a></h3>
+        </header>
+        <p>
+          Exploration of Snowflake's built-in Cortex ML functions for running NLP and ML tasks in-warehouse
+          without external infrastructure — sentiment analysis, text classification, and summarisation
+          using <code>SNOWFLAKE.CORTEX.SENTIMENT</code>, <code>COMPLETE</code>, and <code>CLASSIFY_TEXT</code>.
+        </p>
+        <ul>
+          <li>Zero-copy, in-warehouse ML inference</li>
+          <li>SQL-native LLM prompts via Cortex Complete</li>
+          <li>Benchmarks vs. external API approaches</li>
+        </ul>
+        <footer>
+          <a href="projects/snowflake-cortex.html">Read more →</a>
+          &nbsp;
+          <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener">GitHub ↗</a>
+        </footer>
+      </article>
+
+      <article>
+        <header>
+          <span class="tag">SQL · Analytics · Multi-dialect</span>
+          <h3><a href="projects/sql-practice.html">SQL Practice Suite</a></h3>
+        </header>
+        <p>
+          Advanced SQL practice covering window functions, recursive CTEs, lateral joins, query plan
+          optimisation, and data modelling (star schema, slowly changing dimensions). Problems span
+          SQL Server, Snowflake, and standard ANSI SQL.
+        </p>
+        <ul>
+          <li>50+ problems with worked solutions</li>
+          <li>Window functions: RANK, DENSE_RANK, LAG/LEAD, NTILE</li>
+          <li>Recursive CTEs for hierarchy traversal</li>
+          <li>SCD Type 1, 2, and 3 modelling patterns</li>
+        </ul>
+        <footer>
+          <a href="projects/sql-practice.html">Read more →</a>
+          &nbsp;
+          <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener">GitHub ↗</a>
+        </footer>
+      </article>
+    </div>
+  </main>
+
+  <footer class="container">
+    <hr />
+    <p>
+      <small>
+        &copy; 2026 Advaith &nbsp;·&nbsp;
+        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+      </small>
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
