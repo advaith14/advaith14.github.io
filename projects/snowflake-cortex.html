@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Snowflake Cortex AI | Advaith</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
@@ -25,7 +25,7 @@
 
   <main class="container">
     <div class="project-header">
-      <a href="../projects.html">← All Projects</a>
+      <a href="../projects.html" class="back-link">← All Projects</a>
       <h1 style="margin-top:0.75rem;">Snowflake Cortex AI</h1>
       <div class="project-meta">
         <span class="tag">Snowflake</span>
@@ -34,80 +34,120 @@
         <span class="tag">Cortex</span>
       </div>
       <p>
-        In-warehouse ML inference using Snowflake Cortex functions — sentiment analysis, text classification,
-        and LLM-powered summarisation without leaving the data platform.
+        In-warehouse ML inference using Snowflake Cortex — sentiment analysis, text classification,
+        and LLM-powered summarisation written entirely in SQL, with no external infrastructure.
       </p>
-      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button" class="secondary">
-        View on GitHub ↗
-      </a>
     </div>
 
     <h2>Overview</h2>
     <p>
-      Snowflake Cortex provides a set of SQL functions that run large language model and ML inference
-      directly on data stored in Snowflake — no separate ML platform, no data movement, no API keys to
-      manage per user. This project explores the key Cortex functions and compares the approach to
-      calling an external API from a pipeline.
+      Most ML on data warehouse content follows the same awkward pattern: export data, call an external
+      API or inference endpoint, wrangle the results back in. Snowflake Cortex short-circuits that entirely.
+      The functions run inside your Snowflake account — no data leaves, no separate infrastructure to
+      maintain, no API keys to rotate per user.
     </p>
+    <p>
+      This project explores where that approach works well (fast iteration on structured text, in-flight
+      classification at load time) and where it has limits (large-volume batch inference, highly
+      customised models).
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h4>Sentiment Analysis</h4>
+        <p>Score text columns from -1 to +1 using <code>CORTEX.SENTIMENT</code> — customer reviews, support tickets, survey responses.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <h4>Zero-Shot Classification</h4>
+        <p>Assign rows to custom categories without training data using <code>CORTEX.CLASSIFY_TEXT</code>.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h4>LLM Prompting in SQL</h4>
+        <p>Summarise, extract, or transform text using <code>CORTEX.COMPLETE</code> with any of Snowflake's hosted models.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h4>Zero Data Egress</h4>
+        <p>All inference runs inside your Snowflake account. Data never touches an external API or third-party endpoint.</p>
+      </div>
+    </div>
 
     <h2>Functions Explored</h2>
 
-    <h3>SENTIMENT</h3>
-    <p>Returns a score from -1 (negative) to 1 (positive) for a text column.</p>
-    <pre><code class="language-sql">
-SELECT
-    review_id,
-    review_text,
-    SNOWFLAKE.CORTEX.SENTIMENT(review_text) AS sentiment_score
-FROM customer_reviews;
-    </code></pre>
+    <h3>Sentiment scoring on review data</h3>
+    <pre><code class="language-sql">SELECT review_id,
+       SNOWFLAKE.CORTEX.SENTIMENT(review_text) AS sentiment_score
+FROM   customer_reviews;
+</code></pre>
 
-    <h3>CLASSIFY_TEXT</h3>
-    <p>Zero-shot classification — assign each row to one of your provided categories.</p>
-    <pre><code class="language-sql">
-SELECT
-    ticket_id,
-    description,
-    SNOWFLAKE.CORTEX.CLASSIFY_TEXT(
-        description,
-        ['billing', 'technical', 'account', 'general']
-    )['label']::STRING AS category
-FROM support_tickets;
-    </code></pre>
+    <h3>Zero-shot classification</h3>
+    <pre><code class="language-sql">SELECT ticket_id,
+       SNOWFLAKE.CORTEX.CLASSIFY_TEXT(
+           description,
+           ['billing', 'technical', 'account', 'general']
+       )['label']::STRING AS category
+FROM   support_tickets;
+</code></pre>
 
-    <h3>COMPLETE (LLM prompting)</h3>
-    <p>Prompt an LLM inline in SQL. Useful for summarisation, extraction, and structured output.</p>
-    <pre><code class="language-sql">
-SELECT
-    contract_id,
-    SNOWFLAKE.CORTEX.COMPLETE(
-        'mistral-large',
-        CONCAT(
-            'Summarise the following contract clause in one sentence: ',
-            clause_text
-        )
-    ) AS summary
-FROM contract_clauses
-LIMIT 100;
-    </code></pre>
+    <h3>In-line LLM summarisation</h3>
+    <pre><code class="language-sql">SELECT contract_id,
+       SNOWFLAKE.CORTEX.COMPLETE(
+           'mistral-large',
+           'Summarise in one sentence: ' || clause_text
+       ) AS summary
+FROM   contract_clauses;
+</code></pre>
 
     <h2>Key Findings</h2>
     <ul>
-      <li>Cortex functions run as SQL — no Python environment, no dependencies, no network egress</li>
-      <li>Latency is higher than a batch inference job for large volumes; best suited for &lt;100k rows or async batch</li>
-      <li>
-        <code>COMPLETE</code> with structured prompts (JSON output instructions) is reliable for extraction tasks
-        but needs prompt engineering to avoid hallucinations on short texts
-      </li>
-      <li>Cost is per-token, billed via Snowflake credits — cheaper at scale than many external LLM APIs</li>
-      <li>Zero data-sharing risk — data never leaves your Snowflake account</li>
+      <li>Cortex runs as pure SQL — zero Python environment, zero dependencies, zero network egress</li>
+      <li>Latency is higher than dedicated batch inference for very large tables; best under ~100k rows or async</li>
+      <li><code>COMPLETE</code> with structured output instructions is reliable for extraction tasks with a bit of prompt tuning</li>
+      <li>Per-token cost billed as Snowflake credits — cheaper at scale than most external LLM APIs</li>
     </ul>
 
-    <p style="margin-top:2rem;">
-      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button">
-        View the SQL scripts on GitHub ↗
-      </a>
-    </p>
+    <!-- Roadmap -->
+    <h2>Roadmap</h2>
+    <div class="roadmap">
+      <div class="roadmap-item roadmap-item--done">
+        <span class="roadmap-status">✓ Done</span>
+        <div>
+          <strong>Core Cortex functions</strong>
+          <p>SENTIMENT, CLASSIFY_TEXT, and COMPLETE explored and documented with real query patterns.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--progress">
+        <span class="roadmap-status">In Progress</span>
+        <div>
+          <strong>Structured JSON extraction with COMPLETE</strong>
+          <p>Using Cortex Complete with JSON-mode prompts to extract structured fields from unstructured text at scale.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Cortex Search integration</strong>
+          <p>Combining Cortex Search with semantic retrieval to build a RAG pattern entirely inside Snowflake.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Fine-tuned model comparison</strong>
+          <p>Benchmarking Cortex-hosted models against fine-tuned custom models for domain-specific classification tasks.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Streamlit in Snowflake dashboard</strong>
+          <p>A live Streamlit app (hosted inside Snowflake) for exploring Cortex sentiment outputs interactively.</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="container">

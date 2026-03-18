@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Engineering Framework | Advaith</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
@@ -25,7 +25,7 @@
 
   <main class="container">
     <div class="project-header">
-      <a href="../projects.html">← All Projects</a>
+      <a href="../projects.html" class="back-link">← All Projects</a>
       <h1 style="margin-top:0.75rem;">Data Engineering Framework</h1>
       <div class="project-meta">
         <span class="tag">Python</span>
@@ -36,103 +36,131 @@
         <span class="tag">Delta Lake</span>
       </div>
       <p>
-        A production-grade PySpark / Databricks data engineering framework covering multi-source ingestion,
-        Informatica-style transformations, regression testing, and Unity Catalog write-back.
+        A reusable PySpark library built to standardise how data pipelines are written across a team —
+        covering multi-source ingestion, Informatica-style transformations, regression testing,
+        and Unity Catalog write-back.
       </p>
-      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button" class="secondary">
-        View on GitHub ↗
-      </a>
     </div>
 
     <h2>Overview</h2>
     <p>
-      This framework was built for a production Databricks environment to standardise how data pipelines
-      are written across a team. Rather than each pipeline being ad-hoc, the framework provides a library
-      of reusable functions that cover the full lifecycle: connect → read → transform → test → write.
+      Data engineering teams often end up with pipelines that work but don't scale — each one written
+      slightly differently, with different patterns for joining, testing, and writing data. This framework
+      was built to solve that. It gives a team a single set of well-tested, well-documented functions
+      that cover the full lifecycle from connection to write-back, so pipelines become assembly work
+      rather than greenfield engineering every time.
     </p>
-    <p>
-      The codebase (~4,600 lines) has been sanitised for public use — all client-specific names,
-      credentials, and server addresses have been replaced with generic placeholders.
-    </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h4>Multi-Source Ingestion</h4>
+        <p>Unified connector pattern for JDBC (SQL Server, Oracle), Azure Blob, Snowflake, Salesforce, and REST APIs.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h4>Transformation Library</h4>
+        <p>Informatica-inspired functions: router, joiner, checksum, SCD flag generation, lookup — all in PySpark.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧪</div>
+        <h4>Regression Testing</h4>
+        <p>Schema comparison, row-level hash diffs, cell-by-cell mismatch reporting — catches data drift before it reaches prod.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <h4>Write-Back Patterns</h4>
+        <p>Delta Lake merge/upsert with auto-generated merge conditions, table swap, and Unity Catalog schema-qualified writes.</p>
+      </div>
+    </div>
 
     <h2>Key Capabilities</h2>
 
     <h3>Multi-Source Ingestion</h3>
     <ul>
-      <li><strong>On-Prem JDBC</strong> — SQL Server and Oracle via configurable connection profiles</li>
-      <li><strong>Azure Blob Storage</strong> — CSV, JSON, text, and Delta formats</li>
-      <li><strong>Snowflake</strong> — Read/write via the Spark-Snowflake connector with RSA key auth</li>
-      <li><strong>Salesforce</strong> — Bulk and standard API insert, update, and upsert via simple-salesforce</li>
-      <li><strong>REST APIs</strong> — Paginated fetch with OAuth2 token refresh</li>
+      <li><strong>On-Prem JDBC</strong> — SQL Server and Oracle via configurable named connection profiles</li>
+      <li><strong>Azure Blob Storage</strong> — CSV, JSON, text, and Delta formats with container abstraction</li>
+      <li><strong>Snowflake</strong> — Read/write via the Spark-Snowflake connector, RSA key authentication</li>
+      <li><strong>Salesforce</strong> — Bulk and standard API for insert, update, and upsert operations</li>
+      <li><strong>REST APIs</strong> — Paginated fetch with OAuth2 token refresh and catalog upsert</li>
     </ul>
 
     <h3>Transformation Utilities</h3>
-    <p>A set of Informatica-inspired transformation functions that mirror the patterns used in visual ETL tools:</p>
+    <p>
+      Inspired by the transformations in visual ETL tools like Informatica PowerCenter — so that teams
+      moving off legacy ETL have familiar concepts with Spark performance:
+    </p>
     <ul>
-      <li><code>infa_router</code> — splits a DataFrame into multiple based on filter conditions</li>
-      <li><code>infa_joiner</code> — wraps Spark join with sensible defaults</li>
-      <li><code>md5_checksum</code> — generates MD5 hashes across a column list for change detection</li>
-      <li><code>generate_insert_update_delete_flags</code> — SCD-style IUD flag generation from a joined staging/target DataFrame</li>
-      <li><code>lookup_dataframe</code> — left join lookup with configurable return columns</li>
+      <li><code>infa_router</code> — splits a DataFrame into multiple outputs based on filter conditions</li>
+      <li><code>infa_joiner</code> — wraps Spark join with consistent defaults and suffix handling</li>
+      <li><code>md5_checksum</code> — generates MD5 hashes across configurable column lists for change detection</li>
+      <li><code>generate_insert_update_delete_flags</code> — SCD-style IUD flag generation from a staged join</li>
+      <li><code>lookup_dataframe</code> — left join lookup with configurable return columns and key mapping</li>
     </ul>
 
     <h3>Regression Testing</h3>
     <ul>
-      <li><code>compare_schemas</code> — validates column names and types between two DataFrames</li>
-      <li><code>hash_comp</code> — row-level MD5 comparison to detect data drift</li>
-      <li><code>compare_dataframes</code> — cell-by-cell diff with mismatch reporting</li>
-      <li><code>check_for_special_characters</code> — flags columns containing unexpected characters</li>
+      <li><code>compare_schemas</code> — validates column names and data types between two DataFrames</li>
+      <li><code>hash_comp</code> — row-level MD5 comparison to surface data drift between pipeline runs</li>
+      <li><code>compare_dataframes</code> — cell-by-cell diff with full mismatch reporting</li>
+      <li><code>check_for_special_characters</code> — flags columns containing unexpected or breaking characters</li>
     </ul>
 
-    <h3>Write-Back Patterns</h3>
-    <ul>
-      <li>Delta Lake merge (upsert) with generated <code>WHEN MATCHED / WHEN NOT MATCHED</code> conditions</li>
-      <li>Table swap (overwrite via rename) for full-reload patterns</li>
-      <li>Databricks Unity Catalog schema-qualified writes</li>
-      <li>Snowflake stored proc execution</li>
-    </ul>
-
-    <h2>Code Sample</h2>
-    <p>Generating SCD-style IUD flags from a joined staging and target DataFrame:</p>
-    <pre><code class="language-python">
-# Join staging data with current target
-df_joined = infa_joiner(
-    left_df=df_stage,
-    right_df=df_target,
-    join_type="left",
-    join_keys=["customer_id"]
-)
-
-# Generate Insert / Update / Delete flags
-flag_dict = {
-    "insert_flag":  "customer_id_right IS NULL",
-    "update_flag":  "customer_id_right IS NOT NULL AND md5_stage != md5_target",
-    "delete_flag":  "active_right = 0"
-}
-df_flagged = generate_insert_update_delete_flags(df_joined, flag_dict)
-
-# Split into separate DataFrames per operation
-result = generate_insert_update_delete_dataframes(df_flagged, {
-    "insert": "insert_flag = 1",
-    "update": "update_flag = 1",
-    "delete": "delete_flag = 1"
+    <h3>A taste of the API</h3>
+    <pre><code class="language-python"># SCD-style IUD flag generation
+df_joined = infa_joiner(df_stage, df_target, "left", ["customer_id"])
+df_flagged = generate_insert_update_delete_flags(df_joined, {
+    "insert_flag": "customer_id_right IS NULL",
+    "update_flag": "md5_stage != md5_target",
 })
-df_inserts = result["insert"]
-df_updates = result["update"]
-    </code></pre>
+</code></pre>
 
-    <h2>Local Testing</h2>
-    <p>
-      The pure utility functions (global utils, Informatica transformations, regression testing) can be run
-      locally with PySpark without any cloud credentials. A Jupyter notebook
-      (<code>python/test_framework_local.ipynb</code>) in the repo demonstrates all functions end-to-end.
-    </p>
-
-    <p style="margin-top:2rem;">
-      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button">
-        Explore the code on GitHub ↗
-      </a>
-    </p>
+    <!-- Roadmap -->
+    <h2>Roadmap</h2>
+    <div class="roadmap">
+      <div class="roadmap-item roadmap-item--done">
+        <span class="roadmap-status">✓ Done</span>
+        <div>
+          <strong>Local testing notebook</strong>
+          <p>Full Jupyter notebook to run and validate all utility functions locally with PySpark — no cloud credentials needed.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--progress">
+        <span class="roadmap-status">In Progress</span>
+        <div>
+          <strong>Databricks Community Edition tests</strong>
+          <p>End-to-end notebook tests running on Databricks CE — validating Delta Lake patterns, Unity Catalog writes, and secret scope integration.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Snowflake integration tests</strong>
+          <p>Live Snowflake read/write/upsert tests using the free trial environment with RSA key auth.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>dbt layer</strong>
+          <p>Add a dbt project on top of the ingested Delta tables — transformations, tests, and documentation as code.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Data quality with Great Expectations</strong>
+          <p>Integrate GE expectations into the regression testing layer for schema validation and statistical profiling.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>CI/CD pipeline</strong>
+          <p>GitHub Actions workflow to run unit tests on every push — linting, PySpark tests, and notebook validation.</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="container">

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SQL Practice Suite | Advaith</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
@@ -25,102 +25,130 @@
 
   <main class="container">
     <div class="project-header">
-      <a href="../projects.html">← All Projects</a>
+      <a href="../projects.html" class="back-link">← All Projects</a>
       <h1 style="margin-top:0.75rem;">SQL Practice Suite</h1>
       <div class="project-meta">
         <span class="tag">SQL</span>
         <span class="tag">SQL Server</span>
         <span class="tag">Snowflake</span>
+        <span class="tag">Spark SQL</span>
         <span class="tag">Analytics</span>
       </div>
       <p>
-        Advanced SQL problems with worked solutions covering window functions, recursive CTEs,
-        query optimisation, and data modelling patterns across multiple dialects.
+        Advanced SQL problems with worked solutions — window functions, recursive CTEs, SCD modelling,
+        and query optimisation across multiple dialects.
       </p>
-      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button" class="secondary">
-        View on GitHub ↗
-      </a>
     </div>
 
     <h2>Overview</h2>
     <p>
-      A structured set of SQL exercises aimed at building depth beyond basic SELECT statements.
-      Each problem includes the schema, the question, and a worked solution with commentary on
-      performance and readability trade-offs.
+      A lot of SQL practice resources stop at GROUP BY. This suite goes further — the problems are
+      modelled on the kind of queries that actually come up in data engineering and analytics work:
+      handling hierarchies, building slowly changing dimension patterns, and writing queries that are
+      readable and performant at the same time. Every problem includes a worked solution and commentary
+      on trade-offs.
     </p>
 
-    <h2>Topics Covered</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🪟</div>
+        <h4>Window Functions</h4>
+        <p>RANK, DENSE_RANK, ROW_NUMBER, LAG/LEAD, running totals, NTILE — with real analytical problems.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌳</div>
+        <h4>Recursive CTEs</h4>
+        <p>Org chart traversal, bill of materials, category trees — problems that can't be solved with flat queries.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h4>SCD Patterns</h4>
+        <p>Type 1, 2, and 3 slowly changing dimensions — merge logic, effective date ranges, and history tracking.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h4>Query Optimisation</h4>
+        <p>Execution plan analysis, index strategy, partition pruning — writing queries that hold up at scale.</p>
+      </div>
+    </div>
 
-    <h3>Window Functions</h3>
-    <p>Ranking, running aggregates, and lead/lag across partitions.</p>
-    <pre><code class="language-sql">
--- Top N customers by revenue per region
-SELECT *
-FROM (
-    SELECT
-        region,
-        customer_id,
-        SUM(order_value) AS total_revenue,
-        RANK() OVER (PARTITION BY region ORDER BY SUM(order_value) DESC) AS rk
-    FROM orders
+    <h2>Sample Problems</h2>
+
+    <h3>Running top-N per group</h3>
+    <pre><code class="language-sql">-- Top 3 customers by revenue per region
+SELECT * FROM (
+    SELECT region, customer_id,
+           SUM(order_value)                                   AS revenue,
+           RANK() OVER (PARTITION BY region ORDER BY SUM(order_value) DESC) AS rk
+    FROM   orders
     GROUP BY region, customer_id
-) ranked
-WHERE rk <= 3;
-    </code></pre>
+) t WHERE rk <= 3;
+</code></pre>
 
-    <h3>Recursive CTEs</h3>
-    <p>Hierarchy traversal — org charts, bill of materials, category trees.</p>
-    <pre><code class="language-sql">
--- Walk an org chart from a given employee upward to the root
-WITH RECURSIVE org_tree AS (
-    SELECT employee_id, manager_id, name, 0 AS level
-    FROM employees
-    WHERE employee_id = 42            -- start node
-
-    UNION ALL
-
-    SELECT e.employee_id, e.manager_id, e.name, t.level + 1
-    FROM employees e
-    INNER JOIN org_tree t ON e.employee_id = t.manager_id
-)
-SELECT * FROM org_tree ORDER BY level;
-    </code></pre>
-
-    <h3>Slowly Changing Dimensions</h3>
-    <p>SCD Type 2 — tracking historical changes with effective date ranges.</p>
-    <pre><code class="language-sql">
--- Expire old record and insert new one (SCD Type 2 merge pattern)
-MERGE INTO dim_customer AS tgt
-USING stage_customer AS src
-  ON tgt.customer_id = src.customer_id
-  AND tgt.is_current = 1
-WHEN MATCHED AND (
-    tgt.address != src.address OR tgt.email != src.email
-) THEN UPDATE SET
-    tgt.effective_end   = CURRENT_DATE - 1,
-    tgt.is_current      = 0
-WHEN NOT MATCHED THEN INSERT (
-    customer_id, address, email,
-    effective_start, effective_end, is_current
-) VALUES (
-    src.customer_id, src.address, src.email,
-    CURRENT_DATE, '9999-12-31', 1
-);
-    </code></pre>
+    <h3>SCD Type 2 merge</h3>
+    <pre><code class="language-sql">MERGE INTO dim_customer tgt
+USING stage_customer src ON tgt.customer_id = src.customer_id AND tgt.is_current = 1
+WHEN MATCHED AND tgt.address != src.address THEN
+    UPDATE SET tgt.effective_end = CURRENT_DATE - 1, tgt.is_current = 0
+WHEN NOT MATCHED THEN
+    INSERT (customer_id, address, effective_start, effective_end, is_current)
+    VALUES (src.customer_id, src.address, CURRENT_DATE, '9999-12-31', 1);
+</code></pre>
 
     <h2>Dialects Covered</h2>
-    <div class="skills-grid">
+    <div class="skills-grid" style="margin-bottom:2rem;">
       <span class="skill-chip">ANSI SQL</span>
       <span class="skill-chip">SQL Server (T-SQL)</span>
       <span class="skill-chip">Snowflake SQL</span>
       <span class="skill-chip">Spark SQL</span>
     </div>
 
-    <p style="margin-top:2rem;">
-      <a href="https://github.com/advaith14/data-engineering-practice" target="_blank" rel="noopener" role="button">
-        Browse all problems on GitHub ↗
-      </a>
-    </p>
+    <!-- Roadmap -->
+    <h2>Roadmap</h2>
+    <div class="roadmap">
+      <div class="roadmap-item roadmap-item--done">
+        <span class="roadmap-status">✓ Done</span>
+        <div>
+          <strong>Window functions & CTEs</strong>
+          <p>Core set of window function and recursive CTE problems with worked solutions and commentary.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--done">
+        <span class="roadmap-status">✓ Done</span>
+        <div>
+          <strong>SCD Type 1, 2, 3 patterns</strong>
+          <p>Merge-based SCD implementations in T-SQL and Snowflake SQL with full worked examples.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--progress">
+        <span class="roadmap-status">In Progress</span>
+        <div>
+          <strong>Query optimisation section</strong>
+          <p>Execution plan analysis, index design, and partition pruning problems with before/after performance comparisons.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>dbt model equivalents</strong>
+          <p>Translating the SQL patterns into dbt models — showing the SQL → dbt mapping for each problem type.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Snowflake-specific features</strong>
+          <p>FLATTEN, LATERAL, PIVOT, MATCH_RECOGNIZE, and Time Travel — patterns unique to Snowflake's dialect.</p>
+        </div>
+      </div>
+      <div class="roadmap-item roadmap-item--planned">
+        <span class="roadmap-status">Planned</span>
+        <div>
+          <strong>Interview problem bank</strong>
+          <p>A curated set of data engineering interview SQL problems with timing hints and multiple solution approaches.</p>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="container">

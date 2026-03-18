@@ -27,61 +27,41 @@
 
     <div class="about-grid">
       <div>
-        <!-- Profile photo placeholder — replace with <img src="assets/profile.jpg" ...> when ready -->
-        <div style="
-          width:100%;max-width:280px;aspect-ratio:1;border-radius:1rem;
-          background:linear-gradient(135deg,#6366f1,#06b6d4);
-          display:flex;align-items:center;justify-content:center;
-          font-size:5rem;font-weight:800;color:white;
-          box-shadow:0 8px 32px rgba(99,102,241,0.25);
-          margin-bottom:1.5rem;
-        ">A</div>
+        <img src="assets/profile.jpg" alt="Advaith" class="about-photo" />
 
-        <div class="stats-row">
-          <div class="stat">
-            <div class="stat-number">5+</div>
-            <div class="stat-label">Years</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">3</div>
-            <div class="stat-label">Industries</div>
-          </div>
-          <div class="stat">
-            <div class="stat-number">F500</div>
-            <div class="stat-label">Clients</div>
-          </div>
+        <div class="highlight-pills" style="margin-top:1.5rem;">
+          <span class="highlight-pill">5+ Years Experience</span>
+          <span class="highlight-pill">Fortune 500 Clients</span>
+          <span class="highlight-pill">Real Estate · Finance · Healthcare</span>
         </div>
       </div>
 
       <div>
-        <p style="font-size:1.05rem;line-height:1.8;color:#374151;">
-          Senior Data Engineer with 5+ years of experience building and operating scalable data platforms
-          on Azure Databricks and Snowflake. Specialised in modernising legacy ETL systems, designing
-          high-throughput ingestion pipelines, and delivering secure, production-grade data solutions
-          under enterprise SLAs.
+        <p class="about-lead">
+          I've spent the last five-plus years deep in enterprise data engineering — building the pipelines
+          and platforms that large organisations actually depend on day-to-day.
         </p>
-        <p style="color:#4b5563;line-height:1.8;">
-          Proven track record of reducing platform costs, improving data quality, and enabling analytics
-          at scale — with real delivery experience across real estate, finance, and healthcare for
-          Fortune 500 clients.
+        <p style="color:#4b5563;line-height:1.85;">
+          My work tends to sit in the hard middle ground: where legacy on-prem systems meet cloud architecture,
+          where data quality decisions have real downstream consequences, and where engineering trade-offs show
+          up in platform costs and SLA reliability. I've delivered across real estate, finance, and healthcare
+          for Fortune 500 clients — usually parachuted in to modernise something brittle, scale something that
+          wasn't built to last, or build something from scratch under time pressure.
+        </p>
+        <p style="color:#4b5563;line-height:1.85;">
+          Day-to-day I work on Azure Databricks and Snowflake — designing ingestion patterns, building
+          transformation frameworks, tuning performance, and making sure things don't break at 2am.
         </p>
 
-        <h3 style="margin-top:1.75rem;">What I Work With</h3>
-        <ul style="color:#4b5563;line-height:2;">
-          <li><strong>Platforms:</strong> Azure Databricks, Snowflake, Azure Data Factory, Delta Lake</li>
-          <li><strong>Languages:</strong> Python (PySpark, pandas), SQL (T-SQL, Snowflake, Spark SQL)</li>
-          <li><strong>Patterns:</strong> Medallion architecture, SCD, incremental loads, Delta merge/upsert</li>
-          <li><strong>Tooling:</strong> Git, dbt, Unity Catalog, Jupyter, VS Code, Docker</li>
+        <h3 style="margin-top:1.75rem;">What I work with</h3>
+        <ul class="about-list">
+          <li><strong>Platforms</strong> — Azure Databricks, Snowflake, Azure Data Factory, Delta Lake</li>
+          <li><strong>Languages</strong> — Python (PySpark, pandas), SQL (T-SQL, Snowflake, Spark SQL)</li>
+          <li><strong>Patterns</strong> — Medallion architecture, SCD, incremental loads, Delta merge/upsert</li>
+          <li><strong>Tooling</strong> — dbt, Unity Catalog, Jupyter, Git, Docker, VS Code</li>
         </ul>
 
-        <h3 style="margin-top:1.5rem;">Industries</h3>
-        <div class="skills-grid">
-          <span class="skill-chip">Real Estate</span>
-          <span class="skill-chip">Finance</span>
-          <span class="skill-chip">Healthcare</span>
-        </div>
-
-        <h3 style="margin-top:1.5rem;">Currently Exploring</h3>
+        <h3 style="margin-top:1.5rem;">Currently exploring</h3>
         <div class="skills-grid">
           <span class="skill-chip">Snowflake Cortex AI</span>
           <span class="skill-chip">dbt Core</span>
