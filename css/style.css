@@ -203,8 +203,8 @@ header nav {
 .hero-photo-wrap {
   flex-shrink: 0;
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 340px;
+  height: 340px;
 }
 
 /* decorative blob */
@@ -221,8 +221,8 @@ header nav {
 .hero-photo {
   position: relative;
   z-index: 1;
-  width: 300px;
-  height: 300px;
+  width: 340px;
+  height: 340px;
   border-radius: 1.75rem;
   object-fit: cover;
   object-position: center top;
