@@ -11,9 +11,7 @@
 <body>
   <header class="container">
     <nav>
-      <ul>
-        <li><strong><a href="index.html">Advaith</a></strong></li>
-      </ul>
+      <ul><li><strong><a href="index.html">Advaith</a></strong></li></ul>
       <ul>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
@@ -23,135 +21,74 @@
     </nav>
   </header>
 
-  <main>
-    <!-- Hero — full-width split layout -->
-    <section class="hero-section">
-      <div class="hero-bg"></div>
-      <div class="container">
-        <div class="hero-split fade-up">
-          <!-- Left: text -->
-          <div class="hero-text">
-            <p class="hero-eyebrow">Senior Data Engineer</p>
-            <h1 class="hero-title">Building data<br>platforms that<br><span class="hero-title-accent">actually scale.</span></h1>
-            <p class="hero-desc">
-              5+ years modernising legacy ETL and building high-throughput pipelines
-              on Azure Databricks and Snowflake for Fortune 500 clients across
-              real estate, finance, healthcare, and HR.
-            </p>
-            <div class="hero-stack-row">
-              <span class="hero-stack-chip">Databricks</span>
-              <span class="hero-stack-chip">Snowflake</span>
-              <span class="hero-stack-chip">PySpark</span>
-              <span class="hero-stack-chip">Delta Lake</span>
-              <span class="hero-stack-chip">Azure</span>
-            </div>
-            <div class="hero-actions">
-              <a href="projects.html" role="button">View Projects</a>
-              <a href="contact.html" role="button" class="secondary">Get in Touch</a>
-            </div>
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero-section fade-up">
+      <div class="hero-split">
+        <div class="hero-text">
+          <span class="hero-eyebrow">Senior Data Engineer</span>
+          <h1 class="hero-title">Building data platforms<br><span class="hero-title-accent">that actually scale.</span></h1>
+          <p class="hero-desc">5+ years on Azure Databricks and Snowflake, modernising legacy ETL and delivering production-grade pipelines for Fortune 500 clients.</p>
+          <div class="hero-actions">
+            <a href="projects.html" role="button">View Projects</a>
+            <a href="contact.html" role="button" class="outline">Get in Touch</a>
           </div>
-          <!-- Right: photo -->
-          <div class="hero-photo-wrap">
-            <div class="hero-photo-blob"></div>
-            <img src="assets/profile.jpeg" alt="Advaith" class="hero-photo" />
-          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <img src="assets/profile.jpeg" alt="Advaith" class="hero-photo" />
         </div>
       </div>
     </section>
 
-    <div class="container">
-      <!-- Featured Projects -->
-      <section style="margin-top:4rem;">
-        <h2>Featured Projects</h2>
-        <div class="grid">
-          <article class="fade-up">
-            <header>
-              <span class="tag">PySpark</span><span class="tag">Databricks</span><span class="tag">Azure</span>
-              <h3><a href="projects/pyspark-framework.html">Data Engineering Framework</a></h3>
-            </header>
-            <p>
-              A reusable library of PySpark functions built to standardise how pipelines are written across
-              a team — from multi-source ingestion to transformation, testing, and write-back.
-            </p>
-            <footer>
-              <a href="projects/pyspark-framework.html">Learn more →</a>
-            </footer>
-          </article>
-
-          <article class="fade-up">
-            <header>
-              <span class="tag">Snowflake</span><span class="tag">Cortex Analyst</span><span class="tag">SQL</span>
-              <h3><a href="projects/snowflake-cortex.html">Snowflake Cortex Analyst</a></h3>
-            </header>
-            <p>
-              Natural language analytics layer over a real estate portfolio data model — stakeholders
-              ask plain English questions and get correct, auditable SQL-backed answers.
-            </p>
-            <footer>
-              <a href="projects/snowflake-cortex.html">Learn more →</a>
-            </footer>
-          </article>
-
-          <article class="fade-up">
-            <header>
-              <span class="tag">SQL</span><span class="tag">Analytics</span><span class="tag">Multi-dialect</span>
-              <h3><a href="projects/sql-practice.html">SQL Practice Suite</a></h3>
-            </header>
-            <p>
-              Advanced SQL problems with worked solutions — window functions, recursive CTEs, SCD modelling,
-              and query optimisation across SQL Server, Snowflake, and Spark SQL.
-            </p>
-            <footer>
-              <a href="projects/sql-practice.html">Learn more →</a>
-            </footer>
-          </article>
-        </div>
-        <p style="text-align:center;margin-top:1.5rem;">
-          <a href="projects.html">See all projects →</a>
-        </p>
-      </section>
-
-      <!-- Core Skills -->
-      <section style="margin-top:3rem;">
-        <h2>Core Stack</h2>
-        <div class="skills-grid">
-          <span class="skill-chip">Python</span>
-          <span class="skill-chip">PySpark</span>
-          <span class="skill-chip">Databricks</span>
-          <span class="skill-chip">Snowflake</span>
-          <span class="skill-chip">Azure</span>
-          <span class="skill-chip">SQL</span>
-          <span class="skill-chip">Delta Lake</span>
-          <span class="skill-chip">dbt</span>
-          <span class="skill-chip">Azure Data Factory</span>
-          <span class="skill-chip">Unity Catalog</span>
-          <span class="skill-chip">Control-M</span>
-          <span class="skill-chip">GoAnywhere</span>
-        </div>
-        <p style="margin-top:1rem;"><a href="skills.html">Full skills breakdown →</a></p>
-      </section>
-
-      <!-- CTA -->
-      <div class="cta-section">
-        <h2>Open to mid-level or senior roles</h2>
-        <p>Seeking data engineering and platform engineering positions. Let's talk.</p>
-        <a href="contact.html" role="button">Get in Touch</a>
+    <!-- Featured Projects -->
+    <section class="home-section">
+      <h2>Featured Projects</h2>
+      <div class="grid">
+        <article>
+          <header>
+            <span class="tag">PySpark</span><span class="tag">Databricks</span><span class="tag">Azure</span>
+            <h3><a href="projects/pyspark-framework.html">Data Engineering Framework</a></h3>
+          </header>
+          <p>A reusable PySpark library covering multi-source ingestion, Informatica-style transformations, and Delta Lake write-back patterns.</p>
+          <footer><a href="projects/pyspark-framework.html">Learn more →</a></footer>
+        </article>
+        <article>
+          <header>
+            <span class="tag">Snowflake</span><span class="tag">Cortex Analyst</span>
+            <h3><a href="projects/snowflake-cortex.html">Snowflake Cortex Analyst</a></h3>
+          </header>
+          <p>Natural language analytics over a real estate data model — stakeholders ask plain English questions and get auditable SQL-backed answers.</p>
+          <footer><a href="projects/snowflake-cortex.html">Learn more →</a></footer>
+        </article>
+        <article>
+          <header>
+            <span class="tag">SQL</span><span class="tag">Multi-dialect</span>
+            <h3><a href="projects/sql-practice.html">SQL Practice Suite</a></h3>
+          </header>
+          <p>Advanced SQL problems with worked solutions — window functions, recursive CTEs, SCD patterns, and query optimisation.</p>
+          <footer><a href="projects/sql-practice.html">Learn more →</a></footer>
+        </article>
       </div>
+      <p style="text-align:center;margin-top:1rem;"><a href="projects.html">See all projects →</a></p>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Open to mid-level or senior roles</h2>
+      <p>Seeking data engineering and platform engineering positions. Let's talk.</p>
+      <a href="contact.html" role="button">Get in Touch</a>
     </div>
+
   </main>
 
   <footer class="container">
     <hr />
-    <p>
-      <small>
-        &copy; 2026 Advaith &nbsp;·&nbsp;
-        <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a>
-        &nbsp;·&nbsp;
-        <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
-      </small>
-    </p>
+    <p><small>&copy; 2026 Advaith &nbsp;·&nbsp;
+      <a href="https://github.com/advaith14" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/advaith14" target="_blank" rel="noopener">LinkedIn</a>
+    </small></p>
   </footer>
-
   <script src="js/main.js"></script>
 </body>
 </html>
